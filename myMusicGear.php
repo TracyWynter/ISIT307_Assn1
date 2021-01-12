@@ -11,11 +11,22 @@
             }
             
             /* Page Navi Links */
-            .navi {
+            ul {
+                list-style-type: none;
+                margin: 0px 50px 0px 0px;
+                overflow:hidden;
+                padding:0;
+            }
+            li {
+                float: right;
+            }
+            li a {
+                display: block;
+                padding: 8px;
                 color: black;
                 text-decoration: none;
             }
-            .navi:hover {
+            li a:hover {
                 color: grey;
             }
             
@@ -26,15 +37,15 @@
         <!-- Page Heading Tag -->
         <h1><center> Welcome to My Music Gear </center></h1>
         <br /> 
-            <body background="background.jpg">
+           <!-- <body background="background.jpg"> -->
         <br />
         <!-- Navigation -->
-        <h3 align = "right">
-            <a href="#" class ="navi">HOME</a>
-            <a href="#" class="navi">My ORDERS</a>
-            <a href="#" class="navi">SIGN IN</a>
-            <a href="#" class="navi">REGISTER</a>
-        </h3>
+        <ul>
+            <li><a href="#" class ="navi">HOME</a></li>
+            <li><a href="#" class="navi">My ORDERS</a></li>
+            <li><a href="#" class="navi">SIGN IN</a></li>
+            <li><a href="#" class="navi">REGISTER</a></li>
+        </ul>
         
         <!-- Search Submission -->
         <p><center>What are you looking for?</center></p>

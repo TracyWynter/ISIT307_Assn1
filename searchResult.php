@@ -9,9 +9,23 @@
 
 //Test
 echo "ok";
+//--Violin 1
+echo "<img src='violin1.jpg' alt='Trulli' width='500' height='333'>";
+////--Violin 2
+//<img src="violin2.jpg" alt="Trulli" width="500" height="333">
+////--Violin 3
+//<img src="violin3.jpg" alt="Trulli" width="500" height="333">
+
+// Test for regular expression
 $product_id = filter_input(INPUT_GET, "search");
-if (preg_match("/^$/", $product_id))
-echo $product_id ;
+$pattern = "/^[a-z|A-Z]{3}-[0-9]{4}-[0-9]{2}$/"; // Do not REMOVE "ccc-nnnn-yy"
+if (preg_match($pattern, $product_id)){
+    echo "TRUE";
+}
+else{
+    echo "False";
+}
+echo nl2br("\n" .$product_id) ;
 
 ?>
 

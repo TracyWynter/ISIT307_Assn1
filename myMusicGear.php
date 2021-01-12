@@ -53,9 +53,9 @@
         
         <!-- Search Submission -->
         <p><center>What are you looking for?</center></p>
-        <form class="search" action="searchResult.php">
+        <form class="search" action="searchResult.php" method="get">
             <center>
-                <input type="text" placeholder="Example:Guitar / Piano / Ukelele .... " name="search">
+                <input type="text" placeholder="Example:Guitar / Piano / Ukelele .... " name="search"> 
                 <button type="submit"><i class="fa fa-search">Search</i></button>
             </center>
         </form>

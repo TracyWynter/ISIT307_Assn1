@@ -6,4 +6,7 @@
 
 //-- Seller
 # Personal Info
+echo "ok";
+
+?>
 

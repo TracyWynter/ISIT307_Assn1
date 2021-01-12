@@ -16,7 +16,8 @@
         <!-- Page Heading Tag -->
         <h1><center> Welcome to My Music Gear </center></h1>
         <br /> 
-        
+            <body background="background.jpg">
+        <br />
         <!-- Navigation -->
         <h3 align = "right">
             <a href="#">HOME</a>

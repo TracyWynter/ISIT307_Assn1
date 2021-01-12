@@ -11,10 +11,12 @@
 echo "ok";
 //--Violin 1
 echo "<img src='violin1.jpg' alt='Trulli' width='500' height='333'>";
-////--Violin 2
-//<img src="violin2.jpg" alt="Trulli" width="500" height="333">
-////--Violin 3
-//<img src="violin3.jpg" alt="Trulli" width="500" height="333">
+
+//--Violin 2
+echo "<img src='violin2.jpg' alt='Trulli' width='500' height='333'>";
+//--Violin 3
+echo "<img src='violin3.jpg' alt='Trulli' width='500' height='333'>";
+
 
 // Test for regular expression
 $product_id = filter_input(INPUT_GET, "search");
@@ -27,5 +29,5 @@ else{
 }
 echo nl2br("\n" .$product_id) ;
 
-?>
+
 

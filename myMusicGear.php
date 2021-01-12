@@ -29,10 +29,12 @@
             li a:hover {
                 color: grey;
             }
-            /* background*/
-            .background{
+            
+            /* Background*/
+            body{
                  background-image: url("background.jpg");
                  background-repeat: no-repeat;
+                 background-size: cover;
             
             }
          </style>
@@ -41,9 +43,6 @@
     <body>
         <!-- Page Heading Tag -->
         <h1><center> Welcome to My Music Gear </center></h1>
-        <br /> 
-           <!-- <body background="background.jpg"> -->
-        <br />
         <!-- Navigation -->
         <ul>
             <li><a href="#" class ="navi">HOME</a></li>

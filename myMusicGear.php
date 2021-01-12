@@ -9,6 +9,16 @@
             form.search button {
                 height: 30px;
             }
+            
+            /* Page Navi Links */
+            .navi {
+                color: black;
+                text-decoration: none;
+            }
+            .navi:hover {
+                color: grey;
+            }
+            
          </style>
     </head>
     
@@ -19,10 +29,10 @@
         
         <!-- Navigation -->
         <h3 align = "right">
-            <a href="#">HOME</a>
-            <a href="#">My ORDERS</a>
-            <a href="#">SIGN IN</a>
-            <a href="#">REGISTER</a>
+            <a href="#" class ="navi">HOME</a>
+            <a href="#" class="navi">My ORDERS</a>
+            <a href="#" class="navi">SIGN IN</a>
+            <a href="#" class="navi">REGISTER</a>
         </h3>
         
         <!-- Search Submission -->

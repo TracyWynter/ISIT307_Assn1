@@ -1,9 +1,9 @@
 <?php
 
 //-- Product
-//Basic Info
-//Details
+# Basic Info
+# Details
 
 //-- Seller
-//Personal Info
+# Personal Info
 

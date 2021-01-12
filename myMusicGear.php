@@ -18,7 +18,12 @@
             .navi:hover {
                 color: grey;
             }
+            /* background*/
+            .background{
+                 background-image: url("background.jpg");
+                 background-repeat: no-repeat;
             
+            }
          </style>
     </head>
     

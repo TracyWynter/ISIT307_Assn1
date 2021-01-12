@@ -16,12 +16,16 @@
         <!-- Page Heading Tag -->
         <h1><center> Welcome to My Music Gear </center></h1>
         <br /> 
+        
+        <!-- Navigation -->
         <h3 align = "right">
             <a href="#">HOME</a>
             <a href="#">My ORDERS</a>
             <a href="#">SIGN IN</a>
             <a href="#">REGISTER</a>
         </h3>
+        
+        <!-- Search Submission -->
         <p><center>What are you looking for?</center></p>
         <form class="search" action="/search.php">
             <center>

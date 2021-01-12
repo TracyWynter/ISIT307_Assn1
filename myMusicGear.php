@@ -32,7 +32,7 @@
             
             /* Background*/
             body{
-                 background-image: url("background.jpg");
+                 background-image: url("Images/background.jpg");
                  background-repeat: no-repeat;
                  background-size: cover;
             

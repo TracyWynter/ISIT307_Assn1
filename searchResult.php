@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             if (strcasecmp($product_id, $lineArr[3]) == 0) {  // Zero if it is true
                 echo "Product Found";
 
+                // Placing image like this ain't it a bit hard coding?
                 //Use Switch Case here
                 //Picture
                 //--Violin 1

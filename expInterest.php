@@ -68,6 +68,8 @@
                 fwrite($interestFile, $data);
                 fclose($interestFile);
             }
+            
+            // Display confirmation and success message
         }
 
         ?>

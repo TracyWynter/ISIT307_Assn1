@@ -20,45 +20,56 @@
         }
 
         // Error variables
+        $name = $phone = $email = $product_id = $pPrice= "";
         $nameErr = $phoneErr = $emailErr = $product_idErr = $pPriceErr = "";
+        $checked = TRUE;
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            # Name
             if (empty($_POST["name"])) {
                 $nameErr = "Name is required";
+                $checked = FALSE;
             } else {
                 $name = clean_input($_POST["name"]);
             }
-
+            # Contact Number
             if (empty($_POST["phone"])) {
                 $phoneErr = "Phone is required";
+                $checked = FALSE;
             } else {
                 $phone = clean_input($_POST["phone"]);
             }
-
+            # Email
             if (empty($_POST["email"])) {
                 $emailErr = "Email is required";
+                $checked = FALSE;
             } else {
-                $emailErr = clean_input($_POST["email"]);
+                $email = clean_input($_POST["email"]);
             }
-
-            if (empty($_POST["product_id"])) {
+            # Product ID
+            if (empty($_POST["productID"])) {
                 $product_idErr = "Product ID  is required";
+                $checked = FALSE;
             } else {
-                $product_id = clean_input($_POST["product_id"]);
+                $product_id = clean_input($_POST["productID"]);
             }
-
+            # Proposing Price
             if (empty($_POST["pPrice"])) {
                 $pPriceErr = "Proposing price  is required";
+                $checked = FALSE;
             } else {
                 $pPrice = clean_input($_POST["pPrice"]);
             }
+            
+            // If all the mandatory information is entered
+            if ($checked){
+                $interestFile = fopen("BuyerExInterests.txt", "a");  // Write at the end of the file (create if it does not exist)
+                $data = $name."::".$phone."::".$email."::".$product_id."::".$pPrice."\n";
+                fwrite($interestFile, $data);
+                fclose($interestFile);
+            }
         }
-        // Information to collect:
-        # name
-        # contact number
-        # email
-        # product id
-        # proposing price
+
         ?>
         <!-- HTML -->
         <h1>Expression of Interest</h1>
@@ -70,7 +81,6 @@
             Product id: <input type="text" name="productID"><span class="error"> * <?php echo $product_idErr ?></span><br/><br/>
             Proposing Price ($): <input type="text" name="pPrice"><span class="error"> * <?php echo $pPriceErr; ?></span><br/><br/>
             <input type="submit" name="submit" value="Submit"> 
-
         </form>
 
 

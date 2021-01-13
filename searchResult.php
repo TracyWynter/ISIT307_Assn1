@@ -6,7 +6,7 @@
 //-- Seller
 # Personal Info
 //Test
-echo "ok";
+echo nl2br("ok\n");
 
 
 
@@ -20,22 +20,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $lineArr = explode("::", $line); // Delimit the line
             if (strcasecmp($product_id, $lineArr[3]) == 0) {  // Zero if it is true
                 echo "Product Found";
-				
-				//Use Switch Case here
-				
-				//Picture
-				//--Violin 1
-				echo "<img src='Images/violin1.jpg' alt='Trulli' width='100' height='200'>";
 
-				//--Violin 2
-				echo "<img src='Images/violin2.jpg' alt='Trulli' width='100' height='200'>";
-				
-				//--Violin 3
-				echo "<img src='Images/violin3.jpg' alt='Trulli' width='100' height='200'>";
-            } 
-			else 
-			{	//If status is sold out, picture will be shown and says sold out 
-				//if()
+                //Use Switch Case here
+                //Picture
+                //--Violin 1
+                echo "<img src='Images/violin1.jpg' alt='Trulli' width='100' height='200'>";
+
+                //--Violin 2
+                echo "<img src='Images/violin2.jpg' alt='Trulli' width='100' height='200'>";
+
+                //--Violin 3
+                echo "<img src='Images/violin3.jpg' alt='Trulli' width='100' height='200'>";
+            } else { //If status is sold out, picture will be shown and says sold out 
+                //if()
                 echo "Sold Out";
             }
         }

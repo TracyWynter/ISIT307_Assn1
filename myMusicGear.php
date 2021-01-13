@@ -55,6 +55,8 @@
             } else {
                 $product_idErr = "Product ID format should be in ccc-nnnn-yy format (E.g. abc-0123-14)";
             }
+            
+            $_POST = array();
         }
         ?>
         <!-- Page Heading Tag --> 

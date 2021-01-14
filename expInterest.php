@@ -20,9 +20,13 @@
         }
 
         // Error variables
-        $name = $phone = $email = $product_id = $pPrice= "";
+        $name = $phone = $email = $product_id = $pPrice = "";
         $nameErr = $phoneErr = $emailErr = $product_idErr = $pPriceErr = "";
-        $checked = TRUE;
+        $checked = TRUE; // Only if TRUE then will write to txt file
+
+        $phone_pattern = "/^\d{8}$/"; // Singapore phone number length
+        $email_pattern = "^[\w-.]+@([\w-]+.)+[\w-]{2,4}$"; 
+        $id_pattern = "/^[a-z|A-Z]{3}-[0-9]{4}-[0-9]{2}$/"; // Do not REMOVE "ccc-nnnn-yy" e.g. abc-0123-14
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             # Name
@@ -36,6 +40,8 @@
             if (empty($_POST["phone"])) {
                 $phoneErr = "Phone is required";
                 $checked = FALSE;
+            } else if (!preg_match($phone_pattern, $_POST["phone"])) {
+                $phoneErr = "8 Digits Required";
             } else {
                 $phone = clean_input($_POST["phone"]);
             }
@@ -50,6 +56,8 @@
             if (empty($_POST["productID"])) {
                 $product_idErr = "Product ID  is required";
                 $checked = FALSE;
+            } else if (!preg_match($id_pattern, $_POST["productID"])) {
+                $product_idErr = "Product ID format incorrect";
             } else {
                 $product_id = clean_input($_POST["productID"]);
             }
@@ -60,18 +68,17 @@
             } else {
                 $pPrice = clean_input($_POST["pPrice"]);
             }
-            
+
             // If all the mandatory information is entered
-            if ($checked){
+            if ($checked) {
                 $interestFile = fopen("BuyerExInterests.txt", "a");  // Write at the end of the file (create if it does not exist)
-                $data = $name."::".$phone."::".$email."::".$product_id."::".$pPrice."\n";
+                $data = $name . "::" . $phone . "::" . $email . "::" . $product_id . "::" . $pPrice . "\n";
                 fwrite($interestFile, $data);
                 fclose($interestFile);
             }
-            
+
             // Display confirmation and success message
         }
-
         ?>
         <!-- HTML -->
         <h1>Expression of Interest</h1>

@@ -45,13 +45,42 @@
             .error {
                 color: red;
             }
-            table td,tr{
-                border: 1px solid black;
-                padding: 8px;
+            hr {
+                border: none;
+                height: 1px;
+                background: rgb(80,80,80);
+                border-radius: 1px;
             }
+
+            /* Table for product display */
+            table td,tr{
+                overflow:hidden;
+                text-overflow: ellipsis;
+                border-radius: 4px;
+                padding: 8px;
+                background: snow;
+                vertical-align: top;
+                height: 300px;
+                width: 250px;
+            }
+            table td:hover{
+                cursor: pointer;
+                background: coral;
+            }
+
             table {
                 border-spacing: 15px;
                 border-color: transparent;
+                margin-left: auto;
+                margin-right:auto;
+            }
+            
+            td a:link{
+                text-decoration: none;
+                color: grey;
+            }
+            td a:visited{
+                color:grey;
             }
         </style>
         <script>
@@ -92,7 +121,7 @@
 <div>
     <form class="search" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
         <center>
-            <input type="text" placeholder="Example:Guitar / Piano / Ukelele .... " name="search"> 
+            <input type="text" placeholder="Enter Product id " name="search"> 
             <!--<button type="submit"><i class="fa fa-search">Search</i></button>-->
             <br/><br/><span class="error"><?php echo $product_idErr; ?></span>
         </center>
@@ -101,36 +130,44 @@
 <hr/>
 <!-- Display Instrument Sales Product -->
 <div>
-    <center>
-        <?php
-        $readFile = file('GearDirectory.txt');
-        $instrumentCount = count($readFile); // Total instrument in txt file
-        $rows = (int) ($instrumentCount / 3) + 1; // amount of tr 
-        $cols = 3; // amount of td (default is 3)
 
-        $counter = 0;
-        
-        // Create a table
-        echo "<table border='1'>";
-        for ($tr = 1; $tr <= $rows; $tr++) {
+    <?php
+    $readFile = file('GearDirectory.txt');
+    $instrumentCount = count($readFile); // Total instrument in txt file
+    $rows = (int) ($instrumentCount / 3) + 1; // amount of tr 
+    $cols = 3; // amount of td (default is 3)
 
-            echo "<tr>";
-            if ($instrumentCount < $cols) { // For the last row
-                $cols = $instrumentCount;
-            }
-            for ($td = 1; $td <= $cols; $td++) {
-                $lineArr = explode("::", $readFile[$counter]);       
-                $img = "<img src='Images/". $lineArr[4].".jpg' alt='img' width='80' height='150'>";
-                $product = $img."<br/>Product ID: ".$lineArr[3]. "<br/>Category: ".$lineArr[4]. "<br/>Description: ".$lineArr[5];
-                echo "<td align='left'>" . $product . "</td>";
-                $instrumentCount--;
-                $counter++;
-            }
-            echo "</tr>";
+    $counter = 0;
+
+    // Create a table
+    echo "<table border='1'>";
+    for ($tr = 1; $tr <= $rows; $tr++) {
+
+        echo "<tr>";
+        if ($instrumentCount < $cols) { // For the last row
+            $cols = $instrumentCount;
         }
-        echo "</table>";
-        ?>
-    </center>
+
+        for ($td = 1; $td <= $cols; $td++) {
+            $lineArr = explode("::", $readFile[$counter]);
+            // Limit the description word characters 
+            if (strlen($lineArr[5]) > 65) {
+                $lineArr[5] = substr($lineArr[5], 0, 65) . " ...";
+            }
+            $img = "<img src='Images/" . $lineArr[4] . ".jpg'  width='80' height='150'>";
+            $product = $img . "<br/><hr/>Product ID: <a href='searchResult.php?product_id=".$lineArr[3]. "'>" . $lineArr[3] . "</a><br/>Category: " . $lineArr[4] . "<br/>Description: " . $lineArr[5];
+            echo "<td align='left'>" . $product . "</td>";
+            $instrumentCount--;
+            $counter++;
+            echo "";
+        }
+    }
+
+    echo "</tr>";
+
+    echo "</table>";
+    ?>
+
 </div>
 
 

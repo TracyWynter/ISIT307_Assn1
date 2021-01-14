@@ -1,6 +1,5 @@
 <html>
     <head>
-        <title>My Music Gear</title>
         <style type="text/css">
             form.search input[type=text]{
                 width: 60%;
@@ -39,12 +38,21 @@
             .error {
                 color: red;
             }
+            table td,tr{
+                border: 1px solid black;
+                padding: 8px;
+            }
+            table {
+                border-spacing: 15px;
+                border-color: transparent;
+            }
         </style>
         <script>
             if (window.history.replaceState) {
                 window.history.replaceState(null, null, window.location.href);  //prevents form resubmission upon reload
             }
         </script>
+        <title>My Music Gear</title>
     </head>
 
     <body>
@@ -74,43 +82,47 @@
 
         <!-- Search Submission -->
         <p><center>What are you looking for?</center></p>
-<form class="search" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
-    <center>
-        <input type="text" placeholder="Example:Guitar / Piano / Ukelele .... " name="search"> 
-        <button type="submit"><i class="fa fa-search">Search</i></button><br/><br/>
-        <span class="error"><?php echo $product_idErr; ?></span>
-    </center>
-</form>
+<div>
+    <form class="search" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
+        <center>
+            <input type="text" placeholder="Example:Guitar / Piano / Ukelele .... " name="search"> 
+            <button type="submit"><i class="fa fa-search">Search</i></button><br/><br/>
+            <span class="error"><?php echo $product_idErr; ?></span>
+        </center>
+    </form>
+</div>
 <hr/>
 <!-- Display Instrument Sales Product -->
 <div>
-    <?php
-    $readFile = file('GearDirectory.txt');
-    $instrumentCount = count($readFile); // Total instrument in txt file
-    $rows = (int) ($instrumentCount / 3) + 1; // amount of tr 
-    $cols = 3; // amount of td (default is 3)
+    <center>
+        <?php
+        $readFile = file('GearDirectory.txt');
+        $instrumentCount = count($readFile); // Total instrument in txt file
+        $rows = (int) ($instrumentCount / 3) + 1; // amount of tr 
+        $cols = 3; // amount of td (default is 3)
 
-    $counter = 0;
-    echo "<table border='1'>";
+        $counter = 0;
 
-    for ($tr = 1; $tr <= $rows; $tr++) {
+        // Create a table
+        echo "<table border='1'>";
+        for ($tr = 1; $tr <= $rows; $tr++) {
 
-        echo "<tr>";
-        if ($instrumentCount < $cols) { // For the last row
-            $cols = $instrumentCount;
+            echo "<tr>";
+            if ($instrumentCount < $cols) { // For the last row
+                $cols = $instrumentCount;
+            }
+            for ($td = 1; $td <= $cols; $td++) {
+                $lineArr = explode("::", $readFile[$counter]);
+                $product = "Product ID: ".$lineArr[3]. "<br/>Category: ".$lineArr[4]. "<br/>Description: ".$lineArr[5];
+                echo "<td align='left'>" . $product . "</td>";
+                $instrumentCount--;
+                $counter++;
+            }
+            echo "</tr>";
         }
-        for ($td = 1; $td <= $cols; $td++) {
-            $lineArr=   explode("::",$readFile[$counter]);
-            echo "<td align='center'>" .$lineArr[3] . "</td>";
-            $instrumentCount--;
-            $counter++;
-        }
-        echo "</tr>";
-        
-    }
-
-    echo "</table>";
-    ?>
+        echo "</table>";
+        ?>
+    </center>
 </div>
 
 

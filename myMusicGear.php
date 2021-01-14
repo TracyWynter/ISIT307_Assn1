@@ -1,6 +1,7 @@
 <html>
     <head>
         <style type="text/css">
+
             form.search input[type=text]{
                 width: 60%;
                 height: 30px;

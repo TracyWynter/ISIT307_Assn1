@@ -4,6 +4,13 @@
             form.search input[type=text]{
                 width: 60%;
                 height: 30px;
+                border-radius: 10px;
+                border: transparent;
+                padding: 6px;
+            }
+            /*remove search outline */
+            form.search input[type=text]:focus{ 
+                outline:none;
             }
             form.search button {
                 height: 30px;
@@ -86,8 +93,8 @@
     <form class="search" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
         <center>
             <input type="text" placeholder="Example:Guitar / Piano / Ukelele .... " name="search"> 
-            <button type="submit"><i class="fa fa-search">Search</i></button><br/><br/>
-            <span class="error"><?php echo $product_idErr; ?></span>
+            <!--<button type="submit"><i class="fa fa-search">Search</i></button>-->
+            <br/><br/><span class="error"><?php echo $product_idErr; ?></span>
         </center>
     </form>
 </div>
@@ -102,7 +109,7 @@
         $cols = 3; // amount of td (default is 3)
 
         $counter = 0;
-
+        
         // Create a table
         echo "<table border='1'>";
         for ($tr = 1; $tr <= $rows; $tr++) {
@@ -112,8 +119,9 @@
                 $cols = $instrumentCount;
             }
             for ($td = 1; $td <= $cols; $td++) {
-                $lineArr = explode("::", $readFile[$counter]);
-                $product = "Product ID: ".$lineArr[3]. "<br/>Category: ".$lineArr[4]. "<br/>Description: ".$lineArr[5];
+                $lineArr = explode("::", $readFile[$counter]);       
+                $img = "<img src='Images/". $lineArr[4].".jpg' alt='img' width='80' height='150'>";
+                $product = $img."<br/>Product ID: ".$lineArr[3]. "<br/>Category: ".$lineArr[4]. "<br/>Description: ".$lineArr[5];
                 echo "<td align='left'>" . $product . "</td>";
                 $instrumentCount--;
                 $counter++;

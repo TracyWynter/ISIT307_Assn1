@@ -1,7 +1,14 @@
 <html>
     <head>
         <style type="text/css">
-
+            /* Background*/
+            body{
+                background-image: url("Images/background.jpg");
+                background-repeat: no-repeat;
+                background-size: cover;
+                text-align:center;
+                padding: 20px;
+            }
             form.search input[type=text]{
                 width: 60%;
                 height: 30px;
@@ -26,6 +33,7 @@
             }
             li {
                 float: right;
+
             }
             li a {
                 display: block;
@@ -37,16 +45,17 @@
                 color: grey;
             }
 
-            /* Background*/
-            body{
-                background-image: url("Images/background.jpg");
-                background-repeat: no-repeat;
-                background-size: cover;
-            }
+
             .error {
                 color: red;
             }
-            hr {
+            .hrNavi {
+                border: none;
+                height: 2px;
+                background: rgb(80,80,80);
+                border-radius: 1px;
+            }
+            #productHr{
                 border: none;
                 height: 1px;
                 background: rgb(80,80,80);
@@ -75,7 +84,7 @@
                 margin-left: auto;
                 margin-right:auto;
             }
-            
+
             td a:link{
                 text-decoration: none;
                 color: grey;
@@ -108,69 +117,71 @@
         }
         ?>
         <!-- Page Heading Tag --> 
-        <h1><center> Welcome to My Music Gear </center></h1>
+        <h1>Welcome to My Music Gear </h1>
         <!-- Navigation -->
+        <hr class="hrNavi"/>
         <ul>
-            <li><a href="#" class ="navi">HOME</a></li>
+            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
             <li><a href="#" class="navi">My ORDERS</a></li>
             <li><a href="#" class="navi">SIGN IN</a></li>
+            <li><a href="instrumentSales.php" class="navi">SELL INSTRUMENT</a></li>    <!-- Sales of instrument Page -->
             <li><a href="#" class="navi">REGISTER</a></li>
         </ul>
-
+        <hr class="hrNavi"/>
+        <br/>
         <!-- Search Submission -->
-        <p><center>What are you looking for?</center></p>
-<div>
-    <form class="search" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
-        <center>
-            <input type="text" placeholder="Enter Product id " name="search"> 
-            <!--<button type="submit"><i class="fa fa-search">Search</i></button>-->
-            <br/><br/><span class="error"><?php echo $product_idErr; ?></span>
-        </center>
-    </form>
-</div>
-<hr/>
-<!-- Display Instrument Sales Product -->
-<div>
+        <div>
+            <form class="search" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
+                <center>
+                    <input type="text" placeholder="Enter Product id " name="search"> 
+                    <!--<button type="submit"><i class="fa fa-search">Search</i></button>-->
+                    <br/><br/><span class="error"><?php echo $product_idErr; ?></span>
+                </center>
+            </form>
+        </div>
 
-    <?php
-    $readFile = file('GearDirectory.txt');
-    $instrumentCount = count($readFile); // Total instrument in txt file
-    $rows = (int) ($instrumentCount / 3) + 1; // amount of tr 
-    $cols = 3; // amount of td (default is 3)
+        <!-- Display Instrument Sales Product -->
+        <div>
 
-    $counter = 0;
+            <?php
+            $readFile = file('GearDirectory.txt');
+            $instrumentCount = count($readFile); // Total instrument in txt file
+            $rows = (int) ($instrumentCount / 3) + 1; // amount of tr 
+            $cols = 3; // amount of td (default is 3)
 
-    // Create a table
-    echo "<table border='1'>";
-    for ($tr = 1; $tr <= $rows; $tr++) {
+            $counter = 0;
 
-        echo "<tr>";
-        if ($instrumentCount < $cols) { // For the last row
-            $cols = $instrumentCount;
-        }
+            // Create a table
+            echo "<table border='1'>";
+            for ($tr = 1; $tr <= $rows; $tr++) {
 
-        for ($td = 1; $td <= $cols; $td++) {
-            $lineArr = explode("::", $readFile[$counter]);
-            // Limit the description word characters 
-            if (strlen($lineArr[5]) > 65) {
-                $lineArr[5] = substr($lineArr[5], 0, 65) . " ...";
+                echo "<tr>";
+                if ($instrumentCount < $cols) { // For the last row
+                    $cols = $instrumentCount;
+                }
+
+                for ($td = 1; $td <= $cols; $td++) {
+                    $lineArr = explode("::", $readFile[$counter]);
+                    // Limit the description word characters 
+                    if (strlen($lineArr[5]) > 65) {
+                        $lineArr[5] = substr($lineArr[5], 0, 65) . " ...";
+                    }
+                    $img = "<img src='Images/" . $lineArr[4] . ".jpg'  width='80' height='150'>";
+                    $product = $img . "<br/><hr id='productHr'/>Product ID: <a href='searchResult.php?product_id=" . $lineArr[3] . "'>" . $lineArr[3] . "</a><br/>Category: " . $lineArr[4] . "<br/>Description: " . $lineArr[5];
+                    echo "<td align='left'>" . $product . "</td>";
+                    $instrumentCount--;
+                    $counter++;
+                    echo "";
+                }
             }
-            $img = "<img src='Images/" . $lineArr[4] . ".jpg'  width='80' height='150'>";
-            $product = $img . "<br/><hr/>Product ID: <a href='searchResult.php?product_id=".$lineArr[3]. "'>" . $lineArr[3] . "</a><br/>Category: " . $lineArr[4] . "<br/>Description: " . $lineArr[5];
-            echo "<td align='left'>" . $product . "</td>";
-            $instrumentCount--;
-            $counter++;
-            echo "";
-        }
-    }
 
-    echo "</tr>";
+            echo "</tr>";
 
-    echo "</table>";
-    ?>
+            echo "</table>";
+            ?>
 
-</div>
+        </div>
 
 
-</body>
+    </body>
 </html>

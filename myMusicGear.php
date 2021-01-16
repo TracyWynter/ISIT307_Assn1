@@ -110,7 +110,7 @@
             $pattern = "/^[a-z|A-Z]{3}-[0-9]{4}-[0-9]{2}$/"; // Do not REMOVE "ccc-nnnn-yy" e.g. abc-0123-14
 
             if (preg_match($pattern, $product_id)) {
-                header("Location: searchResult.php?product_id=" . $product_id);   // Redirect if validate correct
+                header("Location: searchResult.php?product_id=" . $product_id);   // Redirect if validate correct (GET)
             } else {
                 $product_idErr = "Product ID format should be in ccc-nnnn-yy format (E.g. abc-0123-14)";
             }

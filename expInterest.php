@@ -7,6 +7,7 @@
             body{
                 background:beige;
                 padding: 20px;
+                font-family: Arial, Helvetica, sans-serif;
             }
             /* Page Navi Links */
             ul {

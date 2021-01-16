@@ -42,14 +42,31 @@
                 color:#4A646C;
                 width:150px;
                 display:inline-block;
-                padding-right:35px;
+                padding-right:40px;
                 text-align:right;
                 float:left;
-
             }
+            .fieldText2{
+                width: 250px;
+                color:#4A646C;
+                display:block;
+                text-align:left;
+            }
+            .fieldText3{
+                width: 350px;
+                color:#4A646C;
+                text-align:left;
+            }
+
+
             .info{              
                 text-align:left;
 
+            }
+
+            div.container .row1{
+                padding: 10px;
+        
             }
             div.container p{
                 width: 350px;
@@ -57,6 +74,13 @@
                 margin-left: auto;
                 margin-right:auto;
 
+            }
+
+            .row1 div{
+                display: inline-block;    
+            }
+            #rightCol{
+                margin-left: 235px;
             }
             .sectionHead{
                 text-align:center;
@@ -75,6 +99,16 @@
                 display:block;
                 width: 200px;
                 height: 250px;
+            }
+            #product_desc{
+                width: 500px;
+                margin-left:auto;
+                margin-right:auto;  
+                display:block;
+            }
+            #desc{
+                width: 300px;
+                text-align:center;
             }
 
 
@@ -153,21 +187,24 @@
         <!-- Navigation -->
         <hr/>
         <ul>
-            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
-            <li><a href="#" class="navi">My ORDERS</a></li>
             <li><a href="#" class="navi">SIGN IN</a></li>
             <li><a href="#" class="navi">REGISTER</a></li>
+            <li><a href="#" class="navi">My ORDERS</a></li>
+            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
         </ul>
         <hr/>
 
         <!-- Product Information Section -->
         <div class="product">
-            <div ><?php echo "<img id=\"product_img\" src='Images/" . $productArr['category'] . ".jpg'>";?></div>
+            <div ><?php echo "<img id=\"product_img\" src='Images/" . $productArr['category'] . ".jpg'>"; ?></div>
             <div class="container">
                 <h3 class="sectionHead">Basic Information</h3>
-                <p><span class="fieldText">Product id: </span><span class="info"><?php echo $productArr['product_id']; ?></span></p>
-                <p><span class="fieldText">Category: </span><span class="info"><?php echo $productArr['category']; ?></span></p>
-                <p><span class="fieldText">Description: </span><span class="info"><?php echo $productArr['description']; ?></span></p>
+                <div class="row1">
+                    <div><span class="fieldText3">Product id: </span><span class="info"><?php echo $productArr['product_id']; ?></span></div>
+                    <div id="rightCol"><span class="fieldText3">Category: </span><span class="info"><?php echo $productArr['category']; ?></span></div>
+                </div>
+                <div class="row1"><span class="fieldText2">Description: </span></div>
+                <div class="row1"><span class="info"><?php echo $productArr['description']; ?></span></div>
             </div>
             <br/>
             <div class="container">

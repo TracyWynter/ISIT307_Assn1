@@ -37,8 +37,8 @@
                 width:800px;
                 margin-left:auto;
                 margin-right:auto;
-                
-				
+
+
             }
             .sectionHead{
                 text-align:center;
@@ -52,6 +52,30 @@
             input{
                 float:center;
             }
+            .submitBtn{
+                /*text-align:center;*/
+                margin-left:auto;  /* custom made to align */
+                margin-right:auto;
+            }
+            .submitBtn input[type=submit]{
+                width: 80px;
+                height:30px;
+                cursor:pointer;
+                border:2px solid grey;
+                border-radius: 6px;
+                background: grey;
+                color: white;
+                padding: 6px;                
+            }
+            .submitBtn input[type=submit]:hover{
+                border: 2px solid green;
+                background:green;
+                color:white;
+            }
+            .submitBtn input[type=submit]:focus{
+                outline:none;
+                border: 2px solid green;
+            }
 
         </style>
 
@@ -62,10 +86,10 @@
         <!-- Navigation -->
         <hr/>
         <ul>
-       		 <li><a href="#" class="navi">SIGN IN</a></li>
-       		 <li><a href="#" class="navi">REGISTER</a></li>
-		 <li><a href="#" class="navi">My ORDERS</a></li>
-		 <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
+            <li><a href="#" class="navi">SIGN IN</a></li>
+            <li><a href="#" class="navi">REGISTER</a></li>
+            <li><a href="#" class="navi">My ORDERS</a></li>
+            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
         </ul>
         <hr/>
 
@@ -96,6 +120,9 @@
                 Name: <input type="text"></br></br>
                 Phone: <input type="text"><br/><br/>
                 Email: <input type="text" placeholder="example@abc.com"><br/><br/>
+            </div>
+            <div class="submitBtn">
+                <input type="submit" name="submit" value="Submit">
             </div>
         </form>
     </body>

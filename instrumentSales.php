@@ -34,22 +34,23 @@
                 border-radius: 1px;
             }
             .instrumentForm{
-                width:500px;
+                width:800px;
                 margin-left:auto;
                 margin-right:auto;
-                border:1px solid black;
+                
+				
             }
             .sectionHead{
-                text-align:left;
+                text-align:center;
 
             }
             .sectionDetails p{
-                text-align:left;
+                text-align:center;
                 float:right;
 
             }
             input{
-                float:left;
+                float:center;
             }
 
         </style>
@@ -71,30 +72,30 @@
         <h2>Sales of Instrument</h2>
         <!-- Instrument Details -->
         <form class="instrumentForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> ">
-            <div class="sectionDetails">
-                <h4 class="sectionHead">Instrument Basic Information</h4>
-                <p>Product id: <input type="text"></p>
-                <p>Category: <input type="text" placeholder="E.g. Guitar/Violin .."></p>
-                <p>Description<textarea width="200px;"></textarea></p>
+            <div class="sectionDetails" >
+                <h4 class="sectionHead">Instrument Basic Information</h4><br/>
+                Product ID:<input type="text"><br/><br/>
+                Category: <input type="text" placeholder="E.g. Guitar/Violin .."><br/><br/>
+                Description:<textarea width="200px;"></textarea><br/><br/>
             </div>
             <div>
-                <h4>Instrument Details</h4>
+                <h4>Instrument Details</h4><br/>
                 <p>Year of manufacture:
                     <select>
                         <option value>
 
                     </select>
                 </p>
-            </div>
+            </div><br/>
 
 
             <!-- Seller Information -->
 
             <div class="sectionDetails">
-                <h4 class="sectionHead">Seller Information</h4>
-                <p>Name: <input type="text"></p>
-                <p>Phone: <input type="text"></p>
-                <p>Email: <input type="text" placeholder="example@abc.com"></p>
+                <h4 class="sectionHead" align='center'>Seller Information</h4>
+                Name: <input type="text"></br></br>
+                Phone: <input type="text"><br/><br/>
+                Email: <input type="text" placeholder="example@abc.com"><br/><br/>
             </div>
         </form>
     </body>

@@ -176,7 +176,7 @@
                 $product_idErr = "Product ID  is required";
                 $checked = FALSE;
             } else if (!preg_match($id_pattern, $interestArr["product_id"])) {
-                $checked=FALSE;
+                $checked = FALSE;
                 $product_idErr = "Product ID format incorrect";
             } else {
                 $interestArr["product_id"] = clean_input($interestArr["product_id"]);
@@ -186,7 +186,7 @@
                 $pPriceErr = "Proposing price  is required";
                 $checked = FALSE;
             } else if ($interestArr["pPrice"] <= 0) {
-                $checked=FALSE;
+                $checked = FALSE;
                 $pPriceErr = "Please input a positive number";
             } else {
                 $interestArr["pPrice"] = clean_input($interestArr["pPrice"]);
@@ -198,65 +198,58 @@
                 $data = $interestArr["name"] . "::" . $interestArr["phone"] . "::" . $interestArr["email"] . "::" . $interestArr["product_id"] . "::" . $interestArr["pPrice"] . "\n";
                 fwrite($interestFile, $data);
                 fclose($interestFile);
+               echo '<script type = "text/javascript" >
+                        alert("You have successfully submitted your interest web form");
+                </script>'; 
 
-                echo "<script type=\"text/javascript\">
-                    var msg = document.getElementById(\"msg\");
-                    if (msg.style.display == \"none\") {
-                        msg.style.display = \"block\"';
-                    } else{
-                        msg.style.display = \"none\";
-                    }
-                   </script>
-                   ";
-                $msg = "Your expression of interest has been submitted successfully";
 
-                // Reset the array
-                $interestArr = array(
-                    'name' => '',
-                    'phone' => '',
-                    'email' => '',
-                    'product_id' => '',
-                    'pPrice' => ''
-                );
+            // Reset the array
+            $interestArr = array(
+            'name' => '',
+            'phone' => '',
+            'email' => '',
+            'product_id' => '',
+            'pPrice' => ''
+            );
             }
-        }
-        ?>
-        <!-- Page Heading Tag --> 
-        <h1><center>My Music Gear </center></h1>
+            }
+            ?>
+            <!-- Page Heading Tag --> 
+            <h1><center>My Music Gear </center></h1>
 
-        <!-- Navigation -->
-        <hr/>
-        <ul>
-            <li><a href="#" class="navi">SIGN IN</a></li>
-            <li><a href="#" class="navi">REGISTER</a></li>
-            <li><a href="#" class="navi">My ORDERS</a></li>
-            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
-        </ul>
+            <!-- Navigation -->
+            <hr/>
+            <ul>
+                <li><a href="#" class="navi">SIGN IN</a></li>
+                <li><a href="#" class="navi">REGISTER</a></li>
+                <li><a href="#" class="navi">My ORDERS</a></li>
+                <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
+            </ul>
 
-        <!-- HTML -->
-        <hr/>
-        <h2><center>Expression of Interest</center></h2>
+            <!-- HTML -->
+            <hr/>
+            <h2><center>Expression of Interest</center></h2>
 
-        <div class="interestForm">
-            <span class="reminder">[Please ensure all fields are filled]</span></br></br>  
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
-                <div class="formContainer">
-                    <label class="field" for="name">Name: </label><input type="text" name="name" id="name" class="formText" value="<?php echo $interestArr["name"]; ?>"><span class="error"> <?php echo $nameErr; ?></span><br/><br/>
-                    <label class="field" for="phone">Contact Number: </label><input type="text" id="phone" class="formText" name="phone" value="<?php echo $interestArr["phone"]; ?>"><span class="error"> <?php echo $phoneErr; ?></span><br/><br/>
-                    <label class="field" for="email"> E-mail: </label><input type="text"  placeholder="example@mail.com" id="email" name="email" class="formText" value="<?php echo $interestArr["email"]; ?>"><span class="error"> <?php echo $emailErr; ?></span><br/><br/>
-                    <label class="field" for="product_id">Product id: </label><input type="text" id="product_id" class="formText" name="product_id" value="<?php echo $interestArr["product_id"]; ?>"><span class="error"> <?php echo $product_idErr ?></span><br/><br/>
-                    <label class="field" for="pPrice">Proposing Price ($): </label><input type="text" id="pPrice" class="formText" name="pPrice" value="<?php echo $interestArr["pPrice"]; ?>"><span class="error"> <?php echo $pPriceErr; ?></span><br/><br/>
-                    <div class="submitBtn">
-                        <input type="submit" name="submit" value="Submit">
-                    </div>
+            <div class="interestForm">
+                <span class="reminder">[Please ensure all fields are filled]</span></br></br>  
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
+                    <div class="formContainer">
+                        <label class="field" for="name">Name: </label><input type="text" name="name" id="name" class="formText" value="<?php echo $interestArr["name"]; ?>"><span class="error"> <?php echo $nameErr; ?></span><br/><br/>
+                        <label class="field" for="phone">Contact Number: </label><input type="text" id="phone" class="formText" name="phone" value="<?php echo $interestArr["phone"]; ?>"><span class="error"> <?php echo $phoneErr; ?></span><br/><br/>
+                        <label class="field" for="email"> E-mail: </label><input type="text"  placeholder="example@mail.com" id="email" name="email" class="formText" value="<?php echo $interestArr["email"]; ?>"><span class="error"> <?php echo $emailErr; ?></span><br/><br/>
+                        <label class="field" for="product_id">Product id: </label><input type="text" id="product_id" class="formText" name="product_id" value="<?php echo $interestArr["product_id"]; ?>"><span class="error"> <?php echo $product_idErr ?></span><br/><br/>
+                        <label class="field" for="pPrice">Proposing Price ($): </label><input type="text" id="pPrice" class="formText" name="pPrice" value="<?php echo $interestArr["pPrice"]; ?>"><span class="error"> <?php echo $pPriceErr; ?></span><br/><br/>
+                <div class="submitBtn">
+                    <input type="submit" name="submit" value="Submit">
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
+    </div>
 
-        <div id="msg"><?php echo $msg; ?></div>
 
 
-    </body>
+
+</body>
 </html>
 
 

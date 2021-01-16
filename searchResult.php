@@ -3,9 +3,10 @@
         <title><?php echo $_GET["product_id"]; ?></title>
         <style type="text/css">
             body{
-                background:thistle;
-                padding:20px;
+                background:lightsteelblue;
+                padding:20px 20px 50px 20px;
                 font-family: Arial, Helvetica, sans-serif;
+
             }
             /* Page Navi Links */
             ul {
@@ -33,9 +34,49 @@
                 border-radius: 1px;
             }
             .product{
-                text-align:left;
-                margin-left: 300px;
+                width: 650px;
+                margin-left:auto;
+                margin-right:auto;
             }
+            .fieldText{
+                color:#4A646C;
+                width:150px;
+                display:inline-block;
+                padding-right:35px;
+                text-align:right;
+                float:left;
+
+            }
+            .info{              
+                text-align:left;
+
+            }
+            div.container p{
+                width: 350px;
+                display: block;
+                margin-left: auto;
+                margin-right:auto;
+
+            }
+            .sectionHead{
+                text-align:center;
+                background: lavender;
+                color:black;
+                border-radius: 4px;
+                padding:4px;
+            }
+            #interest{
+                text-align: center;
+                color: teal;
+            }
+            #product_img{
+                margin-left:auto;
+                margin-right:auto;  
+                display:block;
+                width: 200px;
+                height: 250px;
+            }
+
 
         </style>
     </head>
@@ -121,40 +162,29 @@
 
         <!-- Product Information Section -->
         <div class="product">
-            <div>
-                <h3>Basic Information</h3>
-                <p>Product id: <span><?php echo $productArr['product_id']; ?></span></p>
-                <p>Category: <span><?php echo $productArr['category']; ?></span></p>
-                <p>Description: <span><?php echo $productArr['description']; ?></span></p>
+            <div ><?php echo "<img id=\"product_img\" src='Images/" . $productArr['category'] . ".jpg'>";?></div>
+            <div class="container">
+                <h3 class="sectionHead">Basic Information</h3>
+                <p><span class="fieldText">Product id: </span><span class="info"><?php echo $productArr['product_id']; ?></span></p>
+                <p><span class="fieldText">Category: </span><span class="info"><?php echo $productArr['category']; ?></span></p>
+                <p><span class="fieldText">Description: </span><span class="info"><?php echo $productArr['description']; ?></span></p>
             </div>
             <br/>
-            <div>
-                <h3>Details</h3>
-                <p>Year of manufacture: <span><?php echo $productArr['manufacture_yr']; ?></span></p>
-                <p>Brand: <span><?php echo $productArr['brand']; ?></span></p>
-                <p>Characteristic: <span><?php echo $productArr['characteristics']; ?></span></p>
-                <p>Condition: <span><?php echo $productArr['conditions']; ?></span></p>
+            <div class="container">
+                <h3 class="sectionHead">Details</h3>
+                <p><span class="fieldText">Year of manufacture: </span><span class="info"><?php echo $productArr['manufacture_yr']; ?></span></p>
+                <p><span class="fieldText">Brand: </span><span class="info"><?php echo $productArr['brand']; ?></span></p>
+                <p><span class="fieldText">Characteristic: </span><span class="info"><?php echo $productArr['characteristics']; ?></span></p>
+                <p><span class="fieldText">Condition: </span><span class="info"><?php echo $productArr['conditions']; ?></span></p>
             </div>
-            <div>
-                <p>
-                    <span>
-                        <?php
-                        if ($interestCount == 0) {
-                            echo "No one ";
-                        } else {
-                            echo "<b>$interestCount</b>";
-                        }
-                        ?>
-                    </span> 
-                    person has express their interest.
-                </p>
-            </div>
+            <div id="interest"><span><?php echo "<b>$interestCount</b>"; ?></span> person(s) has express their interest</div>
             <br/>
             <!-- Seller Information -->
-            <div>
-                <h3>Seller Information</h3>
-                <p>Name: <span><?php echo $productArr['name']; ?></span></p>
-                <p>Contact: <span><?php echo $productArr['phone']; ?></span></p>
+            <div class="container">
+                <h3 class="sectionHead">Seller Information</h3>
+                <p class="lineInfo"><span class="fieldText">Name: </span><span class="info"><?php echo $productArr['name']; ?></span></p>
+                <p class="lineInfo"><span class="fieldText">Contact: </span><span class="info"><?php echo $productArr['phone']; ?></span></p>
+                <p class="lineInfo"><span class="fieldText">Email: </span><span class="info"><?php echo $productArr['email']; ?></span></p>
             </div>
         </div>
 

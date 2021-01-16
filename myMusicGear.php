@@ -8,6 +8,7 @@
                 background-size: cover;
                 text-align:center;
                 padding: 20px;
+                font-family: Arial, Helvetica, sans-serif;
             }
             form.search input[type=text]{
                 width: 60%;
@@ -44,7 +45,6 @@
             li a:hover {
                 color: grey;
             }
-
 
             .error {
                 color: red;
@@ -87,10 +87,10 @@
 
             td a:link{
                 text-decoration: none;
-                color: grey;
+                color: dimgrey;
             }
             td a:visited{
-                color:grey;
+                color:dimgrey;
             }
         </style>
         <script>

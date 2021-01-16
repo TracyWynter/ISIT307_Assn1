@@ -121,11 +121,11 @@
         <!-- Navigation -->
         <hr class="hrNavi"/>
         <ul>
-            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
-            <li><a href="#" class="navi">My ORDERS</a></li>
-            <li><a href="#" class="navi">SIGN IN</a></li>
-            <li><a href="instrumentSales.php" class="navi">SELL INSTRUMENT</a></li>    <!-- Sales of instrument Page -->
+            <li><a href="#" class="navi">SIGN IN</a></li> 
             <li><a href="#" class="navi">REGISTER</a></li>
+			<li><a href="instrumentSales.php" class="navi">SELL INSTRUMENT</a></li>    <!-- Sales of instrument Page -->
+			<li><a href="#" class="navi">MY ORDERS</a></li>
+			<li><a href="myMusicGear.php" class ="navi">HOME</a></li>
         </ul>
         <hr class="hrNavi"/>
         <br/>

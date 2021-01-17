@@ -75,7 +75,7 @@
             }
             table td:hover{
                 cursor: pointer;
-                background: coral;
+                background: lavender;
             }
 
             table {
@@ -181,7 +181,6 @@
             ?>
 
         </div>
-
-
+        <div></div>
     </body>
 </html>

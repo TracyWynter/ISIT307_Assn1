@@ -5,9 +5,10 @@
             body{
                 padding: 20px;
                 text-align:center;
-                background: beige;
+                background: lightsteelblue;
                 font-family: Arial, Helvetica, sans-serif;
             }
+
             /* Page Navi Links */
             ul {
                 list-style-type: none;
@@ -33,25 +34,176 @@
                 background: rgb(80,80,80);
                 border-radius: 1px;
             }
-            .instrumentForm{
-                width:800px;
+
+
+
+            /* Form Submit Button */
+            .submitBtn{
                 margin-left:auto;
                 margin-right:auto;
+            }
+            .submitBtn input[type=submit]{
+                width: 80px;
+                height:30px;
+                cursor:pointer;
+                border:2px solid grey;
+                border-radius: 6px;
+                background: grey;
+                color: white;
+                padding: 6px;                
+            }
+            .submitBtn input[type=submit]:hover{
+                border: 2px solid green;
+                background:green;
+                color:white;
+            }
+            .submitBtn input[type=submit]:focus{
+                outline:none;
+                border: 2px solid green;
+            }
+            /* Condition Radio Button */
+            .hideRadio
+            {
+                /*hide the radio button*/
+                display:none;
+            }
+            /*The button label for gender*/
+            .conBtnLabel
+            {
+                width:50px;
+                display:inline-block;
+                cursor:pointer;
+                border-radius: 5px;
+                margin-right: 5px;
+                margin-left:2px;
+                background: lightgrey;
+                color:black;
+                padding: 1px 5px;
+                float:left;
 
 
+            }
+            /*When male radio btn is checked*/
+            #new:checked + .conBtnLabel
+            {
+                background: lightgreen;
+                color:black;
+            }
+            /*When female radio btn is checked*/
+            #used:checked + .conBtnLabel
+            {
+                background: lightgreen;
+                color:black;
+            }
+            /* Form */
+            .instrumentForm{
+                width:700px;
+                margin-left:auto;
+                margin-right:auto;
             }
             .sectionHead{
                 text-align:center;
+                background: lavender;
+                color:black;
+                border-radius: 4px;
+                padding:4px;
 
             }
-            .sectionDetails p{
-                text-align:center;
+            .sectionDetails{
+                display:inline-block;
+                width: 650px;
+                margin-left:auto;
+                margin-right:auto;
+            }
+            .normalSection{              
+                padding:5px;
+                height:20px;
+
+            }
+            .instrumentLabel{
+                width: 200px;
+                display:inline-block;
+                padding-right:15px;
+                text-align:right;
+                float:left;
+
+            }
+            input.formText{
+                text-align:left;
+                float:left;
+                margin-left:2px;
+                border:1.5px solid grey;
+                border-radius:5px;
+                padding: 2px 4px 2px 4px;
+                outline:none;
+            }
+            input.formText:focus{
+                outline:none;
+                border:1.5px solid teal;
+            }
+            .descSection{
+                padding:5px;
+                height: 200px;
+
+            }
+            #desc{
+                resize:none;
+                margin-top:10px;
+                width: 640px;
+                height:150px;
+                border-radius:5px;
+                padding: 2px 4px 2px 4px;
+                float:left;
+            }
+
+            #desc:focus{
+                outline:none;
+            }
+            /* Manufacture Year */
+            .selectOpt {
+                margin-left: 2px;
+                display:block;
+                outline:none;
+                border:1.5px solid grey;
+                border-radius: 4px;
+                padding: 2px 3px 2px 3px;
+                float:left;
+
+            }
+
+            .selectOpt:focus{
+                outline:none;
+                border: 1.5px solid teal;
+            }
+
+            #manufacture_yr{
+                width: 100px;
+
+            }
+            #category{
+                width: 150px;
+            }
+
+            /* Form Error Display */
+            .error {
+                color: red;
+                width: 225px;   
+                text-align:left;
                 float:right;
+            }
+            #descErr{
+                margin-top:5px;
+                text-align:center;
+                width:100%;
+                display:block;
+            }
+            
+            #addChar{
+                margin-left: 2px;
+                float:left;
+                cursor:pointer;
+            }
 
-            }
-            input{
-                float:center;
-            }
 
         </style>
         <script>
@@ -61,16 +213,40 @@
                 var startY = 1900;
                 var endY = new Date().getFullYear();
                 var optionsY = "";
+                optionsY += "<option hidden selected value=' '>Select Year</option>";
                 for (var byyyy = endY; byyyy >= startY; byyyy--) {
                     optionsY += "<option>" + byyyy + "</option>";
                 }
                 document.getElementById("manufacture_yr").innerHTML = optionsY;
             }
+
+
         </script>
 
     </head>
     <body onload="loadYear()">
         <?php
+
+        // String Cleaning
+        function clean_input($input) {
+            $input = trim($input);
+            $input = stripslashes($input);
+            $input = htmlspecialchars($input);
+            return $input;
+        }
+
+        function brandStandard($input) {
+            $input = clean_input($input);
+            $input = strtolower($input);    // All chars to lowercase
+            $input = ucfirst($input);   // First char is uppercase
+            return $input;
+        }
+
+        $name_pattern = "/^[A-Za-z]*$/";
+        $phone_pattern = "/^[689]{1}[0-9]{7}$/"; // Singapore phone number length
+        $email_pattern2 = '/^[a-zA-Z0-9]+(.[_a-z0-9-]+)(?!.*[\%\/\\\&\?\,\'\;\:\!\-]{2}).*@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,3})$/';
+        $email_pattern = '/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/';
+        $id_pattern = "/^[a-z|A-Z]{3}-[0-9]{4}-[0-9]{2}$/"; // Do not REMOVE "ccc-nnnn-yy" e.g. abc-0123-14
         // Used to store correct data
         $salesArr = array(
             'name' => '',
@@ -85,7 +261,8 @@
             'conditions' => '',
             'status' => ''
         );
-
+        $nameErr = $phoneErr = $emailErr = $product_idErr = $pPriceErr = $categoryErr = $yrErr = $descErr = $brandErr = $conditionErr = "";    // Error variables
+        $checked = TRUE; // Only if TRUE then will write to txt file
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /* Load value into array */
             foreach ($_POST as $key => $value) {
@@ -95,31 +272,79 @@
             }
             /* After loading information */
 
+            /* Product Information */
+            # Product ID
+            if (empty($salesArr["product_id"])) {
+                $product_idErr = "Product ID  is empty";
+                $checked = FALSE;
+            } else if (!preg_match($id_pattern, $salesArr["product_id"])) {
+                $checked = FALSE;
+                $product_idErr = "Product ID format incorrect";
+            } else {
+                $salesArr["product_id"] = clean_input($salesArr["product_id"]);
+            }
 
+            # Category
+            if (empty(clean_input($salesArr["category"]))) {
+                $categoryErr = "Category not selected";
+                $checked = FALSE;
+            } else {
+                $salesArr["category"] = clean_input($salesArr["category"]);
+            }
 
+            # Description
+            if (empty(clean_input($salesArr["description"]))) {
+                $descErr = "Description is empty";
+                $checked = FALSE;
+            } else {
+                $salesArr["description"] = clean_input($salesArr["description"]);
+            }
 
+            # Manufacture Year
+            if (empty(clean_input($salesArr["manufacture_yr"]))) {
+                $yrErr = "Manufacture year not selected";
+                $checked = FALSE;
+            } else {
+                $salesArr["manufacture_yr"] = clean_input($salesArr["manufacture_yr"]);
+            }
+
+            # Brand
+            if (empty(clean_input($salesArr["brand"]))) {
+                $brandErr = "Brand is empty";
+                $checked = FALSE;
+            } else {
+                $salesArr["brand"] = brandStandard($salesArr['brand']);
+            }
+            # Characteristic
+            # Conditions
+            if (empty(clean_input($salesArr["conditions"]))) {
+                $conditionErr = "Condition not selected";
+                $checked = FALSE;
+            } else {
+                $salesArr["conditions"] = clean_input($salesArr["conditions"]);
+            }
 
             /* Seller Information */
             # Name
             if (empty(clean_input($salesArr["name"]))) {
-                $nameErr = "Name is required";
+                $nameErr = "Name is empty";
                 $checked = FALSE;
             } else {
                 $salesArr["name"] = clean_input($salesArr["name"]);
             }
             # Contact Number
             if (empty($salesArr["phone"])) {
-                $phoneErr = "Phone is required";
+                $phoneErr = "Contact is empty";
                 $checked = FALSE;
             } else if (!preg_match($phone_pattern, $salesArr["phone"])) {
                 $checked = FALSE;
-                $phoneErr = "8 Digits Required";
+                $phoneErr = "Invalid phone format";
             } else {
                 $salesArr["phone"] = clean_input($salesArr["phone"]);
             }
             # Email
             if (empty($salesArr["email"])) {
-                $emailErr = "Email is required";
+                $emailErr = "Email is empty";
                 $checked = FALSE;
             } else if (!preg_match($email_pattern, $salesArr["email"])) {
                 $checked = FALSE;
@@ -143,30 +368,64 @@
         </ul>
         <hr/>
 
-        <h2>Sales of Instrument</h2>
+        <h2 id="title">Sales of Instrument</h2>
         <!-- Instrument Details -->
         <form class="instrumentForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> ">
+            <!-- Basic Information -->
             <div class="sectionDetails" >
-                <h4 class="sectionHead">Instrument Basic Information</h4><br/>
-                Product ID:<input type="text"><br/><br/>
-                Category: <input type="text" placeholder="E.g. Guitar/Violin .."><br/><br/>
-                Description:<textarea width="200px;"></textarea><br/><br/>
-            </div>
-            <div>
-                <h4>Instrument Details</h4><br/>
-                <p>Year of manufacture:
-                    <select id="manufacture_yr" name="manufacture_yr"></select>
+                <h4 class="sectionHead">Instrument Basic Information</h4>
+                <p class="normalSection"><label class="instrumentLabel" for="product_id">Product ID:</label><input type="text"  name="product_id"  value="<?php echo $salesArr["product_id"]; ?>" class="formText" placeholder="e.g. XXX-0000-00"><span class="error"> <?php echo $product_idErr; ?></span>
                 </p>
-            </div><br/>
+                <p class="normalSection"><label class="instrumentLabel" for="category">Category:</label>
+                    <select id="category" name="category" class="selectOpt" >
+                        <option hidden selected value=" ">Select Category</option>
+                        <option>Guitar</option>
+                        <option>Piano</option>
+                        <option>Ukelele</option>
+                        <option>Saxophone</option>
+                        <option>Violin</option>
+                        <option>Trumpet</option>
+                        <option>Accordion</option>
+                        <option>Clarinet</option>
+                    </select><span class="error"> <?php echo $categoryErr; ?>
+                </p>
+                <p class="descSection"><label class="instrumentLabel"  for ="description">Description:</label><textarea id="desc"  name="description"><?php echo $salesArr["description"]; ?></textarea>
+                    <span class="error" id="descErr"> <?php echo $descErr; ?></span>
+                </p>
+            </div>
+            <!-- Details -->
+            <div class="sectionDetails">
+                <h4 class="sectionHead">Instrument Details</h4>
+                <p class="normalSection"><label class="instrumentLabel">Year of manufacture:</label>
+                    <select id="manufacture_yr" name="manufacture_yr" class="selectOpt"></select>
+                    <span class="error"> <?php echo $yrErr; ?>
+                </p>
+                <p class="normalSection"><label class="instrumentLabel">Brand:</label><input type="text" name="brand" class="formText" value="<?php echo $salesArr["brand"]; ?>"><span class="error"> <?php echo $brandErr; ?></span></p>
+                <p class="normalSection"><label class="instrumentLabel">Characteristics:</label>
+                    <button type="button" id="addChar">Add Characteristics</button>
+                </p>
+                <p class="normalSection"><label for name="sex" class="instrumentLabel">Conditions:</label>
+                    <input type="radio" class="hideRadio" id="new" name="conditions" <?php if ($salesArr["conditions"] == "New") {
+            echo "checked";
+        } ?> value="New"><label for="new" class="conBtnLabel">New</label>
+                    <input type="radio" class="hideRadio" id="used" name="conditions" <?php if ($salesArr["conditions"] == "Used") {
+            echo "checked";
+        } ?> value="Used"><label for="used" class="conBtnLabel">Used</label>
+                    <span class="error"> <?php echo $conditionErr; ?></span>
+                </p>
+            </div>
+            <br/>
 
 
             <!-- Seller Information -->
-
             <div class="sectionDetails">
                 <h4 class="sectionHead" align='center'>Seller Information</h4>
-                Name: <input type="text" pattern="^[A-Za-z]*$"></br></br>
-                Phone: <input type="text" pattern="^[1-9][0-9]{9,14}$"><br/><br/>
-                Email: <input type="text" placeholder="example@abc.com" pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$"><br/><br/>
+                <p class="normalSection"><label class="instrumentLabel" for="name">Name:</label><input type="text" name="name" value="<?php echo $salesArr["name"]; ?>" class="formText"><span class="error"> <?php echo $nameErr; ?></span></p>
+                <p class="normalSection"><label class="instrumentLabel">Phone:</label><input type="text" name="phone" value="<?php echo $salesArr["phone"]; ?>" class="formText"><span class="error"> <?php echo $phoneErr; ?></span></p>
+                <p class="normalSection"><label class="instrumentLabel">Email: </label><input type="text" name="email" value="<?php echo $salesArr["email"]; ?>" class="formText"  placeholder="example@abc.com"><span class="error"> <?php echo $emailErr; ?></span></p>
+            </div>
+            <div class="submitBtn">
+                <input type="submit" name="submit" value="Submit">
             </div>
         </form>
     </body>

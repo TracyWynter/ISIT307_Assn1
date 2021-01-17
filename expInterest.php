@@ -5,7 +5,7 @@
         <!-- Styling -->
         <style type="text/css">
             body{
-                background:beige;
+                background:lightsteelblue;
                 padding: 20px;
                 font-family: Arial, Helvetica, sans-serif;
             }
@@ -198,58 +198,58 @@
                 $data = $interestArr["name"] . "::" . $interestArr["phone"] . "::" . $interestArr["email"] . "::" . $interestArr["product_id"] . "::" . $interestArr["pPrice"] . "\n";
                 fwrite($interestFile, $data);
                 fclose($interestFile);
-               echo '<script type = "text/javascript" >
+                echo '<script type = "text/javascript" >
                         alert("You have successfully submitted your interest web form");
-                </script>'; 
+                </script>';
 
 
-            // Reset the array
-            $interestArr = array(
-            'name' => '',
-            'phone' => '',
-            'email' => '',
-            'product_id' => '',
-            'pPrice' => ''
-            );
+                // Reset the array
+                $interestArr = array(
+                    'name' => '',
+                    'phone' => '',
+                    'email' => '',
+                    'product_id' => '',
+                    'pPrice' => ''
+                );
             }
-            }
-            ?>
-            <!-- Page Heading Tag --> 
-            <h1><center>My Music Gear </center></h1>
+        }
+        ?>
+        <!-- Page Heading Tag --> 
+        <h1><center>My Music Gear </center></h1>
 
-            <!-- Navigation -->
-            <hr/>
-            <ul>
-                <li><a href="#" class="navi">SIGN IN</a></li>
-                <li><a href="#" class="navi">REGISTER</a></li>
-                <li><a href="#" class="navi">My ORDERS</a></li>
-                <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
-            </ul>
+        <!-- Navigation -->
+        <hr/>
+        <ul>
+            <li><a href="#" class="navi">SIGN IN</a></li>
+            <li><a href="#" class="navi">REGISTER</a></li>
+            <li><a href="#" class="navi">My ORDERS</a></li>
+            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
+        </ul>
 
-            <!-- HTML -->
-            <hr/>
-            <h2><center>Expression of Interest</center></h2>
+        <!-- HTML -->
+        <hr/>
+        <h2><center>Expression of Interest</center></h2>
 
-            <div class="interestForm">
-                <span class="reminder">[Please ensure all fields are filled]</span></br></br>  
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
-                    <div class="formContainer">
-                        <label class="field" for="name">Name: </label><input type="text" name="name" id="name" class="formText" value="<?php echo $interestArr["name"]; ?>"><span class="error"> <?php echo $nameErr; ?></span><br/><br/>
-                        <label class="field" for="phone">Contact Number: </label><input type="text" id="phone" class="formText" name="phone" value="<?php echo $interestArr["phone"]; ?>"><span class="error"> <?php echo $phoneErr; ?></span><br/><br/>
-                        <label class="field" for="email"> E-mail: </label><input type="text"  placeholder="example@mail.com" id="email" name="email" class="formText" value="<?php echo $interestArr["email"]; ?>"><span class="error"> <?php echo $emailErr; ?></span><br/><br/>
-                        <label class="field" for="product_id">Product id: </label><input type="text" id="product_id" class="formText" name="product_id" value="<?php echo $interestArr["product_id"]; ?>"><span class="error"> <?php echo $product_idErr ?></span><br/><br/>
-                        <label class="field" for="pPrice">Proposing Price ($): </label><input type="text" id="pPrice" class="formText" name="pPrice" value="<?php echo $interestArr["pPrice"]; ?>"><span class="error"> <?php echo $pPriceErr; ?></span><br/><br/>
-                <div class="submitBtn">
-                    <input type="submit" name="submit" value="Submit">
+        <div class="interestForm">
+            <span class="reminder">[Please ensure all fields are filled]</span></br></br>  
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
+                <div class="formContainer">
+                    <label class="field" for="name">Name: </label><input type="text" name="name" id="name" class="formText" value="<?php echo $interestArr["name"]; ?>"><span class="error"> <?php echo $nameErr; ?></span><br/><br/>
+                    <label class="field" for="phone">Contact Number: </label><input type="text" id="phone" class="formText" name="phone" value="<?php echo $interestArr["phone"]; ?>"><span class="error"> <?php echo $phoneErr; ?></span><br/><br/>
+                    <label class="field" for="email"> E-mail: </label><input type="text"  placeholder="example@mail.com" id="email" name="email" class="formText" value="<?php echo $interestArr["email"]; ?>"><span class="error"> <?php echo $emailErr; ?></span><br/><br/>
+                    <label class="field" for="product_id">Product id: </label><input type="text" id="product_id" class="formText" name="product_id" value="<?php echo $interestArr["product_id"]; ?>"><span class="error"> <?php echo $product_idErr ?></span><br/><br/>
+                    <label class="field" for="pPrice">Proposing Price ($): </label><input type="text" id="pPrice" class="formText" name="pPrice" value="<?php echo $interestArr["pPrice"]; ?>"><span class="error"> <?php echo $pPriceErr; ?></span><br/><br/>
+                    <div class="submitBtn">
+                        <input type="submit" name="submit" value="Submit">
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 
 
 
 
-</body>
+    </body>
 </html>
 
 

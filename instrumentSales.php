@@ -119,12 +119,17 @@
             }
             /* After loading information */
 
+            
+            
+            
+            
+            /* Seller Information*/
             # Name
             if (empty(clean_input($salesArr["name"]))) {
                 $nameErr = "Name is required";
                 $checked = FALSE;
             } else {
-                $interestArr["name"] = clean_input($salesArr["name"]);
+                $salesArr["name"] = clean_input($salesArr["name"]);
             }
             # Contact Number
             if (empty($salesArr["phone"])) {

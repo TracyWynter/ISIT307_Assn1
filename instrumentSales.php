@@ -54,6 +54,19 @@
             }
 
         </style>
+        <script>
+            /* Manufacture Year Load*/
+            function loadYear() {
+                /*Year- display from current year*/
+                var startY = 1900;
+                var endY = new Date().getFullYear();
+                var optionsY = "";
+                for (var byyyy = endY; byyyy >= startY; byyyy--) {
+                    optionsY += "<option>" + byyyy + "</option>";
+                }
+                document.getElementById("manufacture_yr").innerHTML = optionsY;
+            }
+        </script>
 
     </head>
     <body onload="loadYear()">

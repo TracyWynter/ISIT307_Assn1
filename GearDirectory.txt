@@ -1,14 +1,14 @@
-Molly::61231234::ice@ice.com::abc-1234-17::Guitar::This is an used acoustic guitarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr::2017::Yamaha::Black and White::Used::Not Sold
-Tracy::61231234::ice@ice.com::hbc-1243-16::Violin::This is an used violin::2016::Yamaha::Brown and Black::Used::Not Sold
-Tracy::61231234::ice@ice.com::abc-1238-14::Piano::This is an new Piano, this is a very good piano and barely usedagfjdfgdjfgdjfhjdgffdfjhdfghdfhgdfgdfgdfgfdgfgdfgdgfdnghgg.::2014::Yamaha::Black and White::New::Not Sold
-Bob::61231234::bob@ice.com::agc-1245-14::Guitar::This is an used acoustic guitar::2014::Yamaha::Black and White::Used::Not Sold
-Tracy::61231234::ice@ice.com::abc-1234-14::Guitar::This is an used acoustic guitar::2014::Yamaha::Black and White::Used::Not Sold
-Tracy::61231234::ice@ice.com::abc-1234-14::Guitar::This is an used acoustic guitar.::2014::Yamaha::Black and White::Used::Not Sold
-Alice::61231234::alice@ice.com::anq-1234-14::Guitar::This is an used acoustic guitar::2014::Yamaha::Black and White::Used::Not Sold
-Leo::61231234::ice@leo.com::llc-2345-14::Guitar::This is an used acoustic guitarsdfdsfsdgdfgfdghgfhgfhgf::2014::Yamaha::Black and White::Used::Not Sold
-Jill::61231234::jill@ice.com::adc-1234-14::Saxophone::This is an used saxophone::2014::Yamaha::Black and White::Used::Not Sold
-Ken::61231234::ken@ice.com::afc-1234-14::Clarinet::This is an used clarinet::2014::Yamaha::Black and White::Used::Not Sold
-Josh::61231234::josh@ice.com::arg-1664-17::Guitar::This is an new acoustic guitar.This is an new acoustic guitar.This is an new acoustic guitar::2017::Yamaha::Black and White::New::Not Sold
-Tracy::61231234::ice@ice.com::anq-1234-14::Guitar::This is an used acoustic guitar::2014::Yamaha::Black and White::Used::Not Sold
-Tracy::61231234::ice@ice.com::anq-1234-14::Guitar::This is an used acoustic guitar::2014::Yamaha::Black and White::Used::Not Sold
-Tracy::61231234::ice@ice.com::abc-1234-14::Guitar::This is an used acoustic guitar::2014::Yamaha::Black and White::Used::Not Sold
+Molly::61231234::ice@ice.com::abc-1234-17::Guitar::A Classic Guitar.Easy to use and learn. Delivers a rich mellow sound that you will want to continue playing it. Suitable for School/ Band Practice/ Performances.::2017::Yamaha::Black and White::Used::Not Sold
+Tracy::61231234::ice@ice.com::hbc-1243-16::Violin::Great instrument.Used in music college school Great violin with a lot of possible modifications that can be made to this violin.::2016::Yamaha::Brown and Black::Used::Not Sold
+Tracy::61231234::ice@ice.com::abc-1238-14::Piano::A high quality piano suitable for any young age.This is an ideal piano for any inspiring people who loves music . It has an alternative on board settings to allow kids to get creative and experiment on the music settings::2014::Yamaha::Black and White::New::Not Sold
+Bob::61231234::bob@ice.com::agc-1245-14::Guitar::An ultimate comfort for beginners and learners to improve on their passion for music. Ideal for young adults . Not recommended for age 10 and below.::2014::Yamaha::Black and White::Used::Not Sold
+Tracy::61231234::ice@ice.com::abc-1234-14::Guitar::Junior classical guitar. A good choice for young beginners.Still in great quality for its strings.::2014::Yamaha::Black and White::Used::Not Sold
+Tracy::61231234::ice@ice.com::abc-1234-14::Guitar::Junior classical guitar. A good choice for young beginners.Still in great quality for its strings.::2014::Yamaha::Black and White::Used::Not Sold
+Alice::61231234::alice@ice.com::anq-1234-14::Guitar::A classical guitar, ergonomically suited for younger player .Its ergonomic design ,playability and quality build will help young musicians or beginners to ensure that this instrument will not become a passing hobby. ::2014::Yamaha::Black and White::Used::Not Sold
+Leo::61231234::ice@leo.com::llc-2345-14::Guitar::A left handed guitar with elixir strings with a neck strap comfortability for people who uses this guitar.::2014::Yamaha::Black and White::Used::Not Sold
+Jill::61231234::jill@ice.com::adc-1234-14::Saxophone::This is an selmer tenor saxophone with acoustic qualities . High in demand for professionals and music college students.::2014::Yamaha::Black and White::Used::Not Sold
+Ken::61231234::ken@ice.com::afc-1234-14::Clarinet::A clarinet made from nickel silver. It has adjustable thumb hooks , at Bb sound keys.Not recommended for beginners.::2014::Yamaha::Black and White::Used::Not Sold
+Josh::61231234::josh@ice.com::arg-1664-17::Guitar::A guitar known for its rich volume.It has a wide dynamic range with excellent tonal balance which is in high demand by music professionals.::2017::Yamaha::Black and White::New::Not Sold
+Tracy::61231234::ice@ice.com::anq-1234-14::Guitar::Guitar::A classical guitar, ergonomically suited for younger player .Its ergonomic design ,playability and quality build will help young musicians or beginners to ensure that this instrument will not become a passing hobby.::2014::Yamaha::Black and White::Used::Not Sold
+Tracy::61231234::ice@ice.com::anq-1234-14::Guitar::Guitar::A classical guitar, ergonomically suited for younger player .Its ergonomic design ,playability and quality build will help young musicians or beginners to ensure that this instrument will not become a passing hobby.::2014::Yamaha::Black and White::Used::Not Sold
+Tracy::61231234::ice@ice.com::abc-1234-14::Guitar::Junior classical guitar. A good choice for young beginners.Still in great quality for its strings.::2014::Yamaha::Black and White::Used::Not Sold

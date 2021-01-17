@@ -142,10 +142,7 @@
             <div>
                 <h4>Instrument Details</h4><br/>
                 <p>Year of manufacture:
-                    <select>
-                        <option value>
-
-                    </select>
+                    <select id="manufacture_yr" name="manufacture_yr"></select>
                 </p>
             </div><br/>
 

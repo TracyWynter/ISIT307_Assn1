@@ -1,7 +1,6 @@
 <html>
     <head>
         <title>Sales of Instrument</title>
-
         <style type="text/css">
             body{
                 padding: 20px;
@@ -51,46 +50,10 @@
 
             }
             input{
-
-            }
-            .submitBtn{
-                /*text-align:center;*/
-                margin-left:auto;  /* custom made to align */
-                margin-right:auto;
-            }
-            .submitBtn input[type=submit]{
-                width: 80px;
-                height:30px;
-                cursor:pointer;
-                border:2px solid grey;
-                border-radius: 6px;
-                background: grey;
-                color: white;
-                padding: 6px;                
-            }
-            .submitBtn input[type=submit]:hover{
-                border: 2px solid green;
-                background:green;
-                color:white;
-            }
-            .submitBtn input[type=submit]:focus{
-                outline:none;
-                border: 2px solid green;
+                float:center;
             }
 
         </style>
-        <script>
-            function loadYear() {
-                /*Year- display from current year*/
-                var startY = 1900;
-                var endY = new Date().getFullYear();
-                var optionsY = "";
-                for (var byyyy = endY; byyyy >= startY; byyyy--) {
-                    optionsY += "<option>" + byyyy + "</option>";
-                }
-                document.getElementById("manufacture_yr").innerHTML = optionsY;
-            }
-        </script>
 
     </head>
     <body onload="loadYear()">
@@ -119,11 +82,11 @@
             }
             /* After loading information */
 
-            
-            
-            
-            
-            /* Seller Information*/
+
+
+
+
+            /* Seller Information */
             # Name
             if (empty(clean_input($salesArr["name"]))) {
                 $nameErr = "Name is required";
@@ -157,44 +120,43 @@
 
         <!--Page Heading Tag-->
         <h1><center>My Music Gear </center></h1>
-        <!--Navigation-->
+        <!-- Navigation -->
         <hr/>
         <ul>
-            <li><a href = "#" class = "navi">SIGN IN</a></li>
-            <li><a href = "#" class = "navi">REGISTER</a></li>
-            <li><a href = "#" class = "navi">My ORDERS</a></li>
-            <li><a href = "myMusicGear.php" class = "navi">HOME</a></li>
+            <li><a href="#" class="navi">SIGN IN</a></li>
+            <li><a href="#" class="navi">REGISTER</a></li>
+            <li><a href="#" class="navi">MY ORDERS</a></li>
+            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
         </ul>
         <hr/>
 
         <h2>Sales of Instrument</h2>
-        <!--Instrument Details-->
-        <form class = "instrumentForm" method = "post" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> ">
-            <div class = "sectionDetails" >
-                <h4 class = "sectionHead">Instrument Basic Information</h4><br/>
-                Product ID:<input type = "text"><br/><br/>
-                Category: <input type = "text" placeholder = "E.g. Guitar/Violin .."><br/><br/>
-                Description:<textarea width = "200px;"></textarea><br/><br/>
+        <!-- Instrument Details -->
+        <form class="instrumentForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> ">
+            <div class="sectionDetails" >
+                <h4 class="sectionHead">Instrument Basic Information</h4><br/>
+                Product ID:<input type="text"><br/><br/>
+                Category: <input type="text" placeholder="E.g. Guitar/Violin .."><br/><br/>
+                Description:<textarea width="200px;"></textarea><br/><br/>
             </div>
             <div>
                 <h4>Instrument Details</h4><br/>
                 <p>Year of manufacture:
-                    <select name="manufacture_yr" id="manufacture_yr" class="selectDate">
+                    <select>
+                        <option value>
+
                     </select>
                 </p>
             </div><br/>
 
 
-            <!--Seller Information-->
+            <!-- Seller Information -->
 
-            <div class = "sectionDetails">
-                <h4 class = "sectionHead" align = 'center'>Seller Information</h4>
-                Name: <input type = "text"></br></br>
-                Phone: <input type = "text"><br/><br/>
-                Email: <input type = "text" placeholder = "example@abc.com"><br/><br/>
-            </div>
-            <div class = "submitBtn">
-                <input type = "submit" name = "submit" value = "Submit">
+            <div class="sectionDetails">
+                <h4 class="sectionHead" align='center'>Seller Information</h4>
+                Name: <input type="text" pattern="^[A-Za-z]*$"></br></br>
+                Phone: <input type="text" pattern="^[1-9][0-9]{9,14}$"><br/><br/>
+                Email: <input type="text" placeholder="example@abc.com" pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$"><br/><br/>
             </div>
         </form>
     </body>

@@ -1,6 +1,8 @@
 <html>
     <head>
         <title>Sales of Instrument</title>
+        <!-- Add icon library from external web -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style type="text/css">
             body{
                 padding: 20px;
@@ -45,6 +47,8 @@
             .submitBtn input[type=submit]{
                 width: 80px;
                 height:30px;
+                margin-top:22px;
+                margin-bottom:6px;
                 cursor:pointer;
                 border:2px solid grey;
                 border-radius: 6px;
@@ -81,7 +85,6 @@
                 padding: 1px 5px;
                 float:left;
 
-
             }
             /*When male radio btn is checked*/
             #new:checked + .conBtnLabel
@@ -114,22 +117,30 @@
                 width: 650px;
                 margin-left:auto;
                 margin-right:auto;
+
+                border: 1px solid black;
+
             }
             .normalSection{              
+                margin-top:2px;
+                margin-bottom:2px;
                 padding:5px;
-                height:20px;
-
+                height:25px;
+                border:1px solid black;
             }
             .instrumentLabel{
                 width: 200px;
+                height: 25px;
                 display:inline-block;
                 padding-right:15px;
                 text-align:right;
                 float:left;
+                border:1px solid black;
 
             }
             input.formText{
                 text-align:left;
+                height: 23px;
                 float:left;
                 margin-left:2px;
                 border:1.5px solid grey;
@@ -141,9 +152,12 @@
                 outline:none;
                 border:1.5px solid teal;
             }
+            /* Special Description Section */
             .descSection{
+                margin-top:2px;
+                margin-bottom:2px;
                 padding:5px;
-                height: 200px;
+                height: 220px;
 
             }
             #desc{
@@ -197,12 +211,51 @@
                 width:100%;
                 display:block;
             }
-            
+            /* Characteristics */
             #addChar{
+                border: none;
+                border-radius:8px;
                 margin-left: 2px;
+                padding: 6px 8px 6px 8px;
                 float:left;
                 cursor:pointer;
+                color: white;
+                background: cadetblue;
             }
+            #addChar:focus{
+                outline:none;              
+            }
+            #addChar:hover{
+                background: lightseagreen;
+            }
+            #addChar:disabled{
+                cursor: not-allowed;
+            }
+            /* Display Section for characteristics textbox*/
+            .charSection{
+                padding:10px;
+                border: 1px solid black;              
+            }
+            #charDisplay{
+
+                width: 10px;
+                margin: 100px;
+
+            }
+            .chars{
+                display: inline-block;
+                float: left;
+                width: 50px;
+                height: 30px;
+            }
+            .theChars{
+                border: 1px solid black;
+                border-radius: 2px;
+                padding: 4px;
+                margin-right: 2px;
+
+            }
+
 
 
         </style>
@@ -219,7 +272,39 @@
                 }
                 document.getElementById("manufacture_yr").innerHTML = optionsY;
             }
+            var charCount = 0;
+            /* Add One More Characteristic */
+            function addCharacteristic() {
+                var display = document.getElementById("charDisplay");
+                var newChar = document.createElement("span");
+                newChar.setAttribute("id", charCount.toString());   // Will cause trouble
+                newChar.setAttribute("class", "theChars");
+                newChar.onclick = removeCharacteristic;
+                newChar.textContent = document.getElementById("characteristicInput").value;
+                document.getElementById("characteristicInput").value = "";    // Clear the textbox 
+                if (charCount < 5) {
+                    display.appendChild(newChar);
+                    charCount++;
+                }
+                charChange();
+            }
 
+
+            function removeCharacteristic() {
+                var element = this;
+                element.parentNode.removeChild(element);
+                charCount--;
+                charChange();
+            }
+            function charChange() {
+                /* Button Only Active if Less than 5 char */
+                if (charCount < 5) {
+                    document.getElementById("addChar").disabled = false;
+
+                } else {
+                    document.getElementById("addChar").disabled = true;
+                }
+            }
 
         </script>
 
@@ -257,11 +342,11 @@
             'description' => '',
             'manufacture_yr' => '',
             'brand' => '',
-            'characteristics' => '',
+            'characteristics' => array(),
             'conditions' => '',
             'status' => ''
         );
-        $nameErr = $phoneErr = $emailErr = $product_idErr = $pPriceErr = $categoryErr = $yrErr = $descErr = $brandErr = $conditionErr = "";    // Error variables
+        $nameErr = $phoneErr = $emailErr = $product_idErr = $pPriceErr = $categoryErr = $yrErr = $descErr = $brandErr = $conditionErr = $characteristicsErr = "";    // Error variables
         $checked = TRUE; // Only if TRUE then will write to txt file
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /* Load value into array */
@@ -316,6 +401,13 @@
                 $salesArr["brand"] = brandStandard($salesArr['brand']);
             }
             # Characteristic
+            if (empty(($salesArr["characteristics"]))) {
+                $characteristicsErr = "Condition not selected";
+                $checked = FALSE;
+            } else {
+                $salesArr["characteristics"] = $salesArr["characteristics"];
+            }
+
             # Conditions
             if (empty(clean_input($salesArr["conditions"]))) {
                 $conditionErr = "Condition not selected";
@@ -401,16 +493,25 @@
                     <span class="error"> <?php echo $yrErr; ?>
                 </p>
                 <p class="normalSection"><label class="instrumentLabel">Brand:</label><input type="text" name="brand" class="formText" value="<?php echo $salesArr["brand"]; ?>"><span class="error"> <?php echo $brandErr; ?></span></p>
-                <p class="normalSection"><label class="instrumentLabel">Characteristics:</label>
-                    <button type="button" id="addChar">Add Characteristics</button>
+                <p class="normalSection"><label class="instrumentLabel">(Max: 5) Characteristics:</label>
+                    <input type="text" name="characteristic[]" class="formText" id="characteristicInput">
+                    <button type="button" id="addChar" onclick="addCharacteristic()" ><b>Add</b> <span class="fa fa-plus"></span></button> 
                 </p>
+                <p class="charSection">
+                    <span id="charDisplay"></span>
+                </p>
+
                 <p class="normalSection"><label for name="sex" class="instrumentLabel">Conditions:</label>
-                    <input type="radio" class="hideRadio" id="new" name="conditions" <?php if ($salesArr["conditions"] == "New") {
-            echo "checked";
-        } ?> value="New"><label for="new" class="conBtnLabel">New</label>
-                    <input type="radio" class="hideRadio" id="used" name="conditions" <?php if ($salesArr["conditions"] == "Used") {
-            echo "checked";
-        } ?> value="Used"><label for="used" class="conBtnLabel">Used</label>
+                    <input type="radio" class="hideRadio" id="new" name="conditions" <?php
+                    if ($salesArr["conditions"] == "New") {
+                        echo "checked";
+                    }
+                    ?> value="New"/><label for="new" class="conBtnLabel">New</label>
+                    <input type="radio" class="hideRadio" id="used" name="conditions" <?php
+                    if ($salesArr["conditions"] == "Used") {
+                        echo "checked";
+                    }
+                    ?> value="Used"/><label for="used" class="conBtnLabel">Used</label>
                     <span class="error"> <?php echo $conditionErr; ?></span>
                 </p>
             </div>

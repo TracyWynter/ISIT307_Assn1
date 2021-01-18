@@ -211,6 +211,11 @@
                 width:100%;
                 display:block;
             }
+            #charErr{
+                width: 180px;
+                text-align:left;
+                float:right;
+            }
             /* Characteristics */
             #addChar{
                 border: none;
@@ -249,15 +254,19 @@
                 height: 30px;
             }
             .theChars{
-                border: 1px solid black;
-                border-radius: 2px;
+                border-radius: 4px;
                 padding: 4px;
                 margin-right: 2px;
+                background:royalblue;
+                color:whitesmoke;    
 
             }
             .trash{
-                margin-left:2px;
-                cursor:pointer;
+                margin-left:8px;
+                cursor:pointer;             
+            }
+            .trash:hover{
+                color:red;
             }
 
 
@@ -277,36 +286,74 @@
                 document.getElementById("manufacture_yr").innerHTML = optionsY;
             }
             var charCount = 0;
+            var charArr = [];
             /* Add One More Characteristic */
             function addCharacteristic() {
+                var input = document.getElementById("characteristicInput");
                 var display = document.getElementById("charDisplay");
-                var trash = document.createElement("span");
-                trash.setAttribute("class", "fa fa-trash trash");
-                trash.onclick = removeCharacteristic;
-                
-                var newChar = document.createElement("span");             
-                newChar.setAttribute("id", charCount.toString());   // Will cause trouble
-                newChar.setAttribute("class", "theChars");
-                
-                newChar.textContent = document.getElementById("characteristicInput").value;
-                
-                newChar.appendChild(trash);
-                document.getElementById("characteristicInput").value = "";    // Clear the textbox 
-                if (charCount < 5) {
-                    display.appendChild(newChar);
-                    charCount++;
+                var err = document.getElementById("charErr");
+                var cleanInput = input.value.trim();
+                var exist = false;
+                //Not empty
+                if (cleanInput.length !== 0) {
+                    // Does not exist in the characteristics array
+                    for (var i = 0; i < charArr.length; i++) {
+                        if (cleanInput.equals(charArr[i])) {
+                            exist = true;
+                            break;
+                        }
+                    }
+
+                    if (!exist) {
+                        var hiddenVal = "<input type='hidden' name='characteristics[" + cleanInput + "]' value=" + cleanInput + ">";
+                        charArr.push(cleanInput.toLowerCase());
+
+                        err.innerHTML = "";
+                        var trash = document.createElement("span");
+                        trash.setAttribute("class", "fa fa-trash trash");
+                        trash.onclick = removeCharacteristic(cleanInput);
+
+                        var newChar = document.createElement("span");
+                        newChar.setAttribute("class", "theChars");
+
+                        newChar.textContent = input.value;
+                        newChar.innerHTML += hiddenVal;
+                        newChar.appendChild(trash);
+                        input.value = "";    // Clear the textbox 
+                        if (charCount < 5) {
+                            display.appendChild(newChar);
+                            charCount++;
+                        }
+                        charChange();
+                    } else {
+                        err.innerHTML = "Already exist";
+                    }
+
+                } else {
+                    err.innerHTML = "Cannot be empty";
                 }
-                charChange();
+
+
             }
 
 
-            function removeCharacteristic() {
+            function removeCharacteristic(cleanInput) {
                 var element = this.parentNode;
                 element.parentNode.removeChild(element);
                 charCount--;
                 charChange();
+                // Remove the key from the array
+                for (var i = 0; i < charArr.length; i++) {
+                    if (cleanInput.equals(charArr[i])) {
+                        var index = charArr.indexOf(cleanInput.toLowerCase());
+                        if (index > -1) {
+                            charArr.splice(index, 1);
+                        }
+                        break;
+                    }
+                }
             }
-            
+
             function charChange() {
                 /* Button Only Active if Less than 5 char */
                 if (charCount < 5) {
@@ -353,7 +400,8 @@
             'description' => '',
             'manufacture_yr' => '',
             'brand' => '',
-            'characteristics' => array(),
+            'characteristics' => array(
+            ),
             'conditions' => '',
             'status' => ''
         );
@@ -362,7 +410,13 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /* Load value into array */
             foreach ($_POST as $key => $value) {
-                if (isset($salesArr[$key])) {
+//                echo $key.":".$value."<br/>";   //test
+                if ($key == 'characteristics') {
+                    foreach ($_POST[$key] as $key2 => $data) {
+                        echo $key2 . "space" . $data . "<br/>";   //testing
+                        $salesArr[$key][$key2] = htmlspecialchars($data);
+                    }
+                } else if (isset($salesArr[$key])) {
                     $salesArr[$key] = htmlspecialchars($value);
                 }
             }
@@ -412,8 +466,8 @@
                 $salesArr["brand"] = brandStandard($salesArr['brand']);
             }
             # Characteristic
-            if (empty(($salesArr["characteristics"]))) {
-                $characteristicsErr = "Condition not selected";
+            if (sizeof($salesArr["characteristics"]) == 0) {
+                $characteristicsErr = "Characteristic is empty";
                 $checked = FALSE;
             } else {
                 $salesArr["characteristics"] = $salesArr["characteristics"];
@@ -505,11 +559,19 @@
                 </p>
                 <p class="normalSection"><label class="instrumentLabel">Brand:</label><input type="text" name="brand" class="formText" value="<?php echo $salesArr["brand"]; ?>"><span class="error"> <?php echo $brandErr; ?></span></p>
                 <p class="normalSection"><label class="instrumentLabel">(Max: 5) Characteristics:</label>
-                    <input type="text" name="characteristic[]" class="formText" id="characteristicInput">
+                    <input type="text"  class="formText" id="characteristicInput">
                     <button type="button" id="addChar" onclick="addCharacteristic()" ><b>Add</b> <span class="fa fa-plus"></span></button> 
+                    <span class="error" id="charErr"> <?php echo $characteristicsErr; ?></span>
                 </p>
                 <p class="charSection">
-                    <span id="charDisplay"></span>
+
+                    <span id="charDisplay">
+                        <?php
+                        foreach ($salesArr['characteristics'] as $key => $value) {
+                            
+                        }
+                        ?>
+                    </span>
                 </p>
 
                 <p class="normalSection"><label for name="sex" class="instrumentLabel">Conditions:</label>

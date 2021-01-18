@@ -255,6 +255,10 @@
                 margin-right: 2px;
 
             }
+            .trash{
+                margin-left:2px;
+                cursor:pointer;
+            }
 
 
 
@@ -276,11 +280,17 @@
             /* Add One More Characteristic */
             function addCharacteristic() {
                 var display = document.getElementById("charDisplay");
-                var newChar = document.createElement("span");
+                var trash = document.createElement("span");
+                trash.setAttribute("class", "fa fa-trash trash");
+                trash.onclick = removeCharacteristic;
+                
+                var newChar = document.createElement("span");             
                 newChar.setAttribute("id", charCount.toString());   // Will cause trouble
                 newChar.setAttribute("class", "theChars");
-                newChar.onclick = removeCharacteristic;
+                
                 newChar.textContent = document.getElementById("characteristicInput").value;
+                
+                newChar.appendChild(trash);
                 document.getElementById("characteristicInput").value = "";    // Clear the textbox 
                 if (charCount < 5) {
                     display.appendChild(newChar);
@@ -291,11 +301,12 @@
 
 
             function removeCharacteristic() {
-                var element = this;
+                var element = this.parentNode;
                 element.parentNode.removeChild(element);
                 charCount--;
                 charChange();
             }
+            
             function charChange() {
                 /* Button Only Active if Less than 5 char */
                 if (charCount < 5) {

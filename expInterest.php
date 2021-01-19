@@ -132,12 +132,12 @@
         );
         $nameErr = $phoneErr = $emailErr = $product_idErr = $pPriceErr = "";    // Error variables
         $msg = "";
-        $checked = TRUE; // Only if TRUE then will write to txt file
 
-        $phone_pattern = "/^\d{8}$/"; // Singapore phone number length
+
+        $phone_pattern = "/^[689]{1}[0-9]{7}$/"; // Singapore phone number length
         $email_pattern = '/^[a-zA-Z0-9]+(.[_a-z0-9-]+)(?!.*[\%\/\\\&\?\,\'\;\:\!\-]{2}).*@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,3})$/';
         $id_pattern = "/^[a-z|A-Z]{3}-[0-9]{4}-[0-9]{2}$/"; // Do not REMOVE "ccc-nnnn-yy" e.g. abc-0123-14
-
+        $checked = TRUE; // Only if TRUE then will write to txt file
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             foreach ($_POST as $key => $value) {
                 if (isset($interestArr[$key])) {
@@ -153,11 +153,11 @@
             }
             # Contact Number
             if (empty($interestArr["phone"])) {
-                $phoneErr = "Phone is required";
                 $checked = FALSE;
+                $phoneErr = "Phone is required";
             } else if (!preg_match($phone_pattern, $interestArr["phone"])) {
                 $checked = FALSE;
-                $phoneErr = "8 Digits Required";
+                $phoneErr = "Invalid phone format";
             } else {
                 $interestArr["phone"] = clean_input($interestArr["phone"]);
             }
@@ -166,8 +166,8 @@
                 $emailErr = "Email is required";
                 $checked = FALSE;
             } else if (!preg_match($email_pattern, $interestArr["email"])) {
-                $checked = FALSE;
                 $emailErr = "Invalid email format";
+                $checked = FALSE;
             } else {
                 $interestArr["email"] = clean_input($interestArr["email"]);
             }
@@ -176,8 +176,8 @@
                 $product_idErr = "Product ID  is required";
                 $checked = FALSE;
             } else if (!preg_match($id_pattern, $interestArr["product_id"])) {
-                $checked = FALSE;
                 $product_idErr = "Product ID format incorrect";
+                $checked = FALSE;
             } else {
                 $interestArr["product_id"] = clean_input($interestArr["product_id"]);
             }
@@ -186,12 +186,11 @@
                 $pPriceErr = "Proposing price  is required";
                 $checked = FALSE;
             } else if ($interestArr["pPrice"] <= 0) {
-                $checked = FALSE;
                 $pPriceErr = "Please input a positive number";
+                $checked = FALSE;
             } else {
                 $interestArr["pPrice"] = clean_input($interestArr["pPrice"]);
             }
-
             // If all the mandatory information is entered
             if ($checked) {
                 $interestFile = fopen("BuyerExInterests.txt", "a");  // Write at the end of the file (create if it does not exist)
@@ -211,6 +210,7 @@
                     'product_id' => '',
                     'pPrice' => ''
                 );
+                $checked = false;
             }
         }
         ?>

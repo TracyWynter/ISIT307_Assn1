@@ -447,10 +447,9 @@
 
             /* Load value into array */
             foreach ($_POST as $key => $value) {
-                //                echo $key.":".$value."<br/>";   //test
                 if ($key == 'characteristics') {
                     foreach ($_POST[$key] as $key2 => $data) {
-                        echo $key2 . " space " . $data . "<br/>";   //testing
+//                        echo $key2 . " space " . $data . "<br/>";   //testing
                         $salesArr[$key][$key2] = htmlspecialchars($data);
                     }
                 } else if (isset($salesArr[$key])) {

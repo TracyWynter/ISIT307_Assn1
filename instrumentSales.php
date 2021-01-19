@@ -117,16 +117,12 @@
                 width: 650px;
                 margin-left:auto;
                 margin-right:auto;
-
-                border: 1px solid black;
-
             }
             .normalSection{              
                 margin-top:2px;
                 margin-bottom:2px;
                 padding:5px;
                 height:25px;
-                border:1px solid black;
             }
             .instrumentLabel{
                 width: 200px;
@@ -135,7 +131,6 @@
                 padding-right:15px;
                 text-align:right;
                 float:left;
-                border:1px solid black;
 
             }
             input.formText{
@@ -238,11 +233,9 @@
             }
             /* Display Section for characteristics textbox*/
             .charSection{
-                padding:10px;
-                border: 1px solid black;              
+                padding:10px;         
             }
             #charDisplay{
-
                 width: 10px;
                 margin: 100px;
 

@@ -606,6 +606,7 @@
                 </p>
                 <p class="normalSection"><label class="instrumentLabel" for="category">Category:</label>
                     <select id="category" name="category" class="selectOpt" >
+                        <!-- 6 Main Categories -->
                         <option hidden selected value=" ">Select Category</option>
                         <option value="Woodwind" <?php
                         if ($salesArr['category'] == "Woodwind") {

@@ -2,7 +2,9 @@
     <head>
         <style type="text/css">
             body{
-                padding: 20px;
+                background:lightsteelblue;
+                padding:20px 20px 50px 20px;
+                font-family: Arial, Helvetica, sans-serif;
             }
             /* Page Navi Links */
             ul {
@@ -48,10 +50,11 @@
         <!-- Navigation -->
         <hr/>
         <ul>
-            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
-            <li><a href="#" class="navi">My ORDERS</a></li>
-            <li><a href="#" class="navi">SIGN IN</a></li>
+            <li><a href="#" class="navi">SIGN IN</a></li> 
             <li><a href="#" class="navi">REGISTER</a></li>
+            <li><a href="instrumentSales.php" class="navi">SELL INSTRUMENT</a></li>    <!-- Sales of instrument Page -->
+            <li><a href="#" class="navi">MY ORDERS</a></li>
+            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
         </ul>
         <hr/>
         <div class="errorMsg">

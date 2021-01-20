@@ -230,6 +230,12 @@
             }
             #addChar:disabled{
                 cursor: not-allowed;
+                color: white;
+                background: cadetblue;
+            }
+            /* Characteristic text input */
+            #characteristicInput:disabled{
+                cursor: not-allowed;
             }
             /* Display Section for characteristics textbox*/
             .charSection{
@@ -349,20 +355,19 @@
                 }
             }
 
-            /* This is a onclick function that is attached to each characteristics */
+            /* This is a onclick function that is attached to each characteristic's trash bin */
             function removeCharacteristic() {
-                var charId = this.parentNode.id;
                 var char = this.parentNode; // The Element that contains text and delete (newChar)
+                var charId = char.id;    // Get the id value that is stored in the parent node
                 char.parentNode.removeChild(char); // char's parent node to remove char
 
                 // Remove the key from the array which key refers to characteristics[key]
                 for (var i = 0; i < charArr.length; i++) {
-                    document.getElementById("charErr").innerHTML = charId;
+//                    document.getElementById("charErr").innerHTML = charId;  // testing
                     if (charId === charArr[i]) {
                         var index = charArr.indexOf(charId);
-
                         if (index > -1) {   // Just to make sure it does not go array index out of bound
-                            charArr.splice(index, 1);
+                            charArr.splice(index, 1);   // remove the value from the array
                         }
                         break;
                     }
@@ -374,8 +379,10 @@
             function charChange() {
                 /* Button Only Active if Less than 5 char */
                 if (charCount < 5) {
+                    document.getElementById("characteristicInput").disabled = false;
                     document.getElementById("addChar").disabled = false;
                 } else {
+                    document.getElementById("characteristicInput").disabled = true;
                     document.getElementById("addChar").disabled = true;
                 }
             }
@@ -389,25 +396,25 @@
 
         // String Cleaning
         function clean_input($input) {
-            $input = trim($input);
-            $input = stripslashes($input);
-            $input = htmlspecialchars($input);
+            $input = trim($input);  // Remove leading and trailing whitespace 
+            $input = stripslashes($input);  // Remove '\' (slashes)
+            $input = htmlspecialchars($input);  // Treat special chars as HTML entities
+            $input = strtolower($input);    // All chars to lowercase
             return $input;
         }
 
-        function brandStandard($input) {
+        // String standardise of band and other names (e.g. Yamaha)
+        function nameStandard($input) {
             $input = clean_input($input);
-            $input = strtolower($input);    // All chars to lowercase
             $input = ucfirst($input);   // First char is uppercase
             return $input;
         }
 
         // Load the years to select option element
         function loadYear($selected) {
-            $string = '';
-            $years = array_combine(range(date("Y"), 1910), range(date("Y"), 1910));
-
+            $years = array_combine(range(date("Y"), 1910), range(date("Y"), 1910)); // Generating year array
             $string = '<option hidden selected value=" ">Select Year</option>';
+            // Looping the values
             foreach ($years as $key => $value) {
                 $optionContent = ($selected == $key) ? 'selected="selected"' : '';
                 $string .= '<option value="' . $key . '"' . $optionContent . '>' . $value . '</option>' . "\n";
@@ -456,10 +463,10 @@
             if (empty($salesArr["product_id"])) {
                 $product_idErr = "Product ID  is empty";
                 $checked = FALSE;
-            } else if (!preg_match($id_pattern, $salesArr["product_id"])) {
+            } else if (!preg_match($id_pattern, nameStandard($salesArr["product_id"]))) {
                 $product_idErr = "Product ID format incorrect";
                 $checked = FALSE;
-            } else {               
+            } else {
                 $salesArr["product_id"] = clean_input($salesArr["product_id"]);
             }
 
@@ -468,15 +475,13 @@
                 $categoryErr = "Category not selected";
                 $checked = FALSE;
             } else {
-                $salesArr["category"] = clean_input($salesArr["category"]);
+                $salesArr["category"] = nameStandard($salesArr["category"]);
             }
 
             # Description
             if (empty(clean_input($salesArr["description"]))) {
                 $checked = FALSE;
                 $descErr = "Description is empty";
-            } else {
-                $salesArr["description"] = clean_input($salesArr["description"]);
             }
 
             # Manufacture Year
@@ -488,11 +493,11 @@
             }
 
             # Brand
-            if (empty(clean_input($salesArr["brand"]))) {
+            if (empty(nameStandard($salesArr["brand"]))) {
                 $brandErr = "Brand is empty";
                 $checked = FALSE;
             } else {
-                $salesArr["brand"] = brandStandard($salesArr['brand']);
+                $salesArr["brand"] = nameStandard($salesArr['brand']);
             }
             # Characteristic
             if (sizeof($salesArr["characteristics"]) == 0) {    // Make sure there is at least one characteristic is given in the array
@@ -501,20 +506,20 @@
             }
 
             # Conditions
-            if (empty(clean_input($salesArr["conditions"]))) {
+            if (empty(nameStandard($salesArr["conditions"]))) {
                 $conditionErr = "Condition not selected";
                 $checked = FALSE;
             } else {
-                $salesArr["conditions"] = clean_input($salesArr["conditions"]);
+                $salesArr["conditions"] = nameStandard($salesArr["conditions"]);
             }
 
             /* Seller Information */
             # Name
-            if (empty(clean_input($salesArr["name"]))) {
+            if (empty(nameStandard($salesArr["name"]))) {
                 $nameErr = "Name is empty";
                 $checked = FALSE;
             } else {
-                $salesArr["name"] = clean_input($salesArr["name"]);
+                $salesArr["name"] = nameStandard($salesArr["name"]);
             }
             # Contact Number
             if (empty($salesArr["phone"])) {
@@ -539,12 +544,17 @@
             // Compare year of manufacture and product_id yr
             // If all the mandatory information is entered (Write into 'GearDirectory.txt')
             if ($checked) {
+                $charCounter = 0;
                 $salesFile = fopen("GearDirectory.txt", "a");  // Write at the end of the file (create if it does not exist)
-                $data = $salesArr["name"] . "::" . $salesArr["phone"] . "::" . $salesArr["email"] . "::" . $salesArr["product_id"] . "::" . $salesArr["category"] . "::" . $salesArr["description"] . "::" . $salesArr["manufacture_yr"] . "::" . $salesArr["brand"];
+                $data = $salesArr["name"] . "::" . $salesArr["phone"] . "::" . $salesArr["email"] . "::" . $salesArr["product_id"] . "::" . $salesArr["category"] . "::" . $salesArr["description"] . "::" . $salesArr["manufacture_yr"] . "::" . $salesArr["brand"]."::";
                 foreach ($salesArr['characteristics'] as $key => $value) {
-                    $data .= "~~" . $value;
+                    $data .= $value;
+                    if ($charCounter < count($salesArr['characteristics'])-1){
+                        $data.="~~";
+                    }
+                    $charCounter++;
                 }
-                $data .= $salesArr['status'] . "\n";
+                $data .= "::" . $salesArr['conditions'] . "\n";
                 fwrite($salesFile, $data);
                 fclose($salesFile);
                 echo '<script type = "text/javascript" >
@@ -596,45 +606,50 @@
                     <select id="category" name="category" class="selectOpt" >
                         <option hidden selected value=" ">Select Category</option>
                         <option value="Guitar" <?php
-        if ($salesArr['category'] == "Guitar") {
-            echo ' selected="selected"';
-        }
-        ?>>Guitar</option>
+                        if ($salesArr['category'] == "Guitar") {
+                            echo ' selected="selected"';
+                        }
+                        ?>>Guitar</option>
                         <option value="Piano" <?php
                         if ($salesArr['category'] == "Piano") {
                             echo ' selected="selected"';
                         }
-        ?>>Piano</option>
+                        ?>>Piano</option>
                         <option value="Ukelele" <?php
                         if ($salesArr['category'] == "Ukelele") {
                             echo ' selected="selected"';
                         }
-        ?>>Ukelele</option>
+                        ?>>Ukelele</option>
                         <option value="Saxophone" <?php
                         if ($salesArr['category'] == "Saxophone") {
                             echo ' selected="selected"';
                         }
-        ?>>Saxophone</option>
+                        ?>>Saxophone</option>
                         <option value="Violin" <?php
                         if ($salesArr['category'] == "Violin") {
                             echo ' selected="selected"';
                         }
-        ?>>Violin</option>
+                        ?>>Violin</option>
                         <option value="Trumpet" <?php
                         if ($salesArr['category'] == "Trumpet") {
                             echo ' selected="selected"';
                         }
-        ?>>Trumpet</option>
+                        ?>>Trumpet</option>
                         <option value="Accordion" <?php
                         if ($salesArr['category'] == "Accordion") {
                             echo ' selected="selected"';
                         }
-        ?>>Accordion</option>
+                        ?>>Accordion</option>
                         <option value="Clarinet" <?php
                         if ($salesArr['category'] == "Clarinet") {
                             echo ' selected="selected"';
                         }
-        ?>>Clarinet</option>
+                        ?>>Clarinet</option>
+                        <option value="Others" <?php
+                        if ($salesArr['category'] == "Others") {
+                            echo ' selected="selected"';
+                        }
+                        ?>>Others</option>
                     </select><span class="error"> <?php echo $categoryErr; ?>
                 </p>
                 <p class="descSection"><label class="instrumentLabel"  for ="description">Description:</label><textarea id="desc"  name="description"><?php echo $salesArr["description"]; ?></textarea>
@@ -669,15 +684,15 @@
 
                 <p class="normalSection"><label for name="sex" class="instrumentLabel">Conditions:</label>
                     <input type="radio" class="hideRadio" id="new" name="conditions" <?php
-                        if ($salesArr["conditions"] == "New") {
-                            echo "checked";
-                        }
-                        ?> value="New"/><label for="new" class="conBtnLabel">New</label>
+                    if ($salesArr["conditions"] == "New") {
+                        echo "checked";
+                    }
+                    ?> value="New"/><label for="new" class="conBtnLabel">New</label>
                     <input type="radio" class="hideRadio" id="used" name="conditions" <?php
                     if ($salesArr["conditions"] == "Used") {
                         echo "checked";
                     }
-                        ?> value="Used"/><label for="used" class="conBtnLabel">Used</label>
+                    ?> value="Used"/><label for="used" class="conBtnLabel">Used</label>
                     <span class="error"> <?php echo $conditionErr; ?></span>
                 </p>
             </div>

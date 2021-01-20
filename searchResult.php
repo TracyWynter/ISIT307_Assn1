@@ -66,7 +66,7 @@
 
             div.container .row1{
                 padding: 10px;
-        
+
             }
             div.container p{
                 width: 350px;
@@ -126,8 +126,7 @@
             'manufacture_yr' => '',
             'brand' => '',
             'characteristics' => '',
-            'conditions' => '',
-            'status' => ''
+            'conditions' => ''
         );
 
         $interestCount = 0;
@@ -151,9 +150,8 @@
                             'description' => $lineArr[5],
                             'manufacture_yr' => $lineArr[6],
                             'brand' => $lineArr[7],
-                            'characteristics' => $lineArr[8],
-                            'conditions' => $lineArr[9],
-                            'status' => $lineArr[10]
+                            'characteristics' =>implode(", ",  explode("~~",$lineArr[8])),
+                            'conditions' => $lineArr[9]
                         );
 
                         if (file_exists("BuyerExInterests.txt")) {
@@ -211,7 +209,7 @@
                 <h3 class="sectionHead">Details</h3>
                 <p><span class="fieldText">Year of manufacture: </span><span class="info"><?php echo $productArr['manufacture_yr']; ?></span></p>
                 <p><span class="fieldText">Brand: </span><span class="info"><?php echo $productArr['brand']; ?></span></p>
-                <p><span class="fieldText">Characteristic: </span><span class="info"><?php echo $productArr['characteristics']; ?></span></p>
+                <p><span class="fieldText">Characteristic(s): </span><span class="info"><?php echo $productArr['characteristics']; ?></span></p>
                 <p><span class="fieldText">Condition: </span><span class="info"><?php echo $productArr['conditions']; ?></span></p>
             </div>
             <div id="interest"><span><?php echo "<b>$interestCount</b>"; ?></span> person(s) has express their interest</div>

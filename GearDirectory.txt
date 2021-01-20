@@ -1,4 +1,4 @@
-Molly::61231234::ice@ice.com::abc-1234-17::Guitar::A Classic Guitar.Easy to use and learn. Delivers a rich mellow sound that you will want to continue playing it. Suitable for School/ Band Practice/ Performances.::2017::Yamaha::Black and White::Used::Not Sold
+Molly::61231234::ice@ice.com::abc-1234-17::Guitar::A Classic Guitar.Easy to use and learn. Delivers a rich mellow sound that you will want to continue playing it. Suitable for School/ Band Practice/ Performances.::2017::Yamaha::Black~~White::Used::Not Sold
 Tracy::61231234::ice@ice.com::hbc-1243-16::Violin::Great instrument.Used in music college school Great violin with a lot of possible modifications that can be made to this violin.::2016::Yamaha::Brown and Black::Used::Not Sold
 Tracy::61231234::ice@ice.com::abc-1238-14::Piano::A high quality piano suitable for any young age.This is an ideal piano for any inspiring people who loves music . It has an alternative on board settings to allow kids to get creative and experiment on the music settings::2014::Yamaha::Black and White::New::Not Sold
 Bob::61231234::bob@ice.com::agc-1245-14::Guitar::An ultimate comfort for beginners and learners to improve on their passion for music. Ideal for young adults . Not recommended for age 10 and below.::2014::Yamaha::Black and White::Used::Not Sold
@@ -12,8 +12,9 @@ Josh::61231234::josh@ice.com::arg-1664-17::Guitar::A guitar known for its rich v
 Tracy::61231234::ice@ice.com::anq-1234-14::Guitar::Guitar::A classical guitar, ergonomically suited for younger player .Its ergonomic design ,playability and quality build will help young musicians or beginners to ensure that this instrument will not become a passing hobby.::2014::Yamaha::Black and White::Used::Not Sold
 Tracy::61231234::ice@ice.com::anq-1234-14::Guitar::Guitar::A classical guitar, ergonomically suited for younger player .Its ergonomic design ,playability and quality build will help young musicians or beginners to ensure that this instrument will not become a passing hobby.::2014::Yamaha::Black and White::Used::Not Sold
 Tracy::61231234::ice@ice.com::abc-1234-14::Guitar::Junior classical guitar. A good choice for young beginners.Still in great quality for its strings.::2014::Yamaha::Black and White::Used::Not Sold
-Bob::91234567::apple@ice.com::anq-1234-14::Piano::qweqweqwewqe::2016::Wac::123::Badass
-Joe::91234567::apple@ice.com::dwq-1224-12::Piano::qweqweqwewqe::2014::Yamaha::123::Badass~~Tqtq
-Billy::91234567::apple@ice.com::dwq-1224-12::Trumpet::qweqweqwewqe::2014::Yamahaqqqqqq::123::Omh
-Joe::91234567::apple@ice.com::anq-1234-14::Piano::qweqweqwewqeqwe::2004::Sadsa~~Tyty
-Lan::91234567::apple@ice.com::anq-1234-14::Guitar::234324324::2019::Wdcc~~Asdsad
+Bob::91234567::apple@ice.com::qsw-1021-10::Piano::This is my old piano which I am selling to upgrade to a new one.::2010::Pianobomb::Soothing~~Classical::Used
+Billy::91234567::apple@ice.com::lqw-2463-20::Trumpet::his is a trumpet which was purchased recently.::2020::Blastmusic::Gold~~Shiny::New
+Dan::61235464::dan@ice.com::anq-1234-20::Saxophone::This is a saxophone.::2020::Bluemusic::Cool::New
+Summer::91254234::summer@ice.com::oqw-1415-10::Guitar::Guitar Cool.::2005::Oldschool::Old~~Retro::Used
+Soul::91234567::apple@ice.com::qas-3455-14::Others::Bass::2014::Bass::Low~~Soulful~~Cool::Used
+Finn::91234567::finn@ice.com::sqw-0023-10::Saxophone::Black saxophone::2017::Wdcc::Black::Used

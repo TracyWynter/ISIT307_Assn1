@@ -398,6 +398,8 @@
         function clean_input($input) {
             $input = trim($input);  // Remove leading and trailing whitespace 
             $input = stripslashes($input);  // Remove '\' (slashes)
+            $input = str_replace("~", "-", $input); // Prevent it from messing up data storage (Delimiter: "~~")
+            $input = str_replace(":", "-", $input); // Prevent it from messing up data storage (Delimiter: "::")
             $input = htmlspecialchars($input);  // Treat special chars as HTML entities
             $input = strtolower($input);    // All chars to lowercase
             return $input;
@@ -605,50 +607,37 @@
                 <p class="normalSection"><label class="instrumentLabel" for="category">Category:</label>
                     <select id="category" name="category" class="selectOpt" >
                         <option hidden selected value=" ">Select Category</option>
+                        <option value="Woodwind" <?php
+                        if ($salesArr['category'] == "Woodwind") {
+                            echo ' selected="selected"';
+                        }
+                        ?>>Woodwind</option>
+                        <option value="Brass" <?php
+                        if ($salesArr['category'] == "Brass") {
+                            echo ' selected="selected"';
+                        }
+                        ?>>Brass</option>
+                        <option value="Percussion" <?php
+                        if ($salesArr['category'] == "Percussion") {
+                            echo ' selected="selected"';
+                        }
+                        ?>>Percussion</option>
+                        <option value="Keyboard" <?php
+                        if ($salesArr['category'] == "Keyboard") {
+                            echo ' selected="selected"';
+                        }
+                        ?>>Keyboard</option>
+                        <option value="Bowed Strings" <?php
+                        if ($salesArr['category'] == "Bowed Strings") {
+                            echo ' selected="selected"';
+                        }
+                        ?>>Bowed Strings</option>
                         <option value="Guitar" <?php
                         if ($salesArr['category'] == "Guitar") {
                             echo ' selected="selected"';
                         }
                         ?>>Guitar</option>
-                        <option value="Piano" <?php
-                        if ($salesArr['category'] == "Piano") {
-                            echo ' selected="selected"';
-                        }
-                        ?>>Piano</option>
-                        <option value="Ukelele" <?php
-                        if ($salesArr['category'] == "Ukelele") {
-                            echo ' selected="selected"';
-                        }
-                        ?>>Ukelele</option>
-                        <option value="Saxophone" <?php
-                        if ($salesArr['category'] == "Saxophone") {
-                            echo ' selected="selected"';
-                        }
-                        ?>>Saxophone</option>
-                        <option value="Violin" <?php
-                        if ($salesArr['category'] == "Violin") {
-                            echo ' selected="selected"';
-                        }
-                        ?>>Violin</option>
-                        <option value="Trumpet" <?php
-                        if ($salesArr['category'] == "Trumpet") {
-                            echo ' selected="selected"';
-                        }
-                        ?>>Trumpet</option>
-                        <option value="Accordion" <?php
-                        if ($salesArr['category'] == "Accordion") {
-                            echo ' selected="selected"';
-                        }
-                        ?>>Accordion</option>
-                        <option value="Clarinet" <?php
-                        if ($salesArr['category'] == "Clarinet") {
-                            echo ' selected="selected"';
-                        }
-                        ?>>Clarinet</option>
-                        <option value="Others" <?php
-                        if ($salesArr['category'] == "Others") {
-                            echo ' selected="selected"';
-                        }
+
                         ?>>Others</option>
                     </select><span class="error"> <?php echo $categoryErr; ?>
                 </p>

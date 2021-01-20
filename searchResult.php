@@ -57,8 +57,6 @@
                 color:#4A646C;
                 text-align:left;
             }
-
-
             .info{              
                 text-align:left;
 

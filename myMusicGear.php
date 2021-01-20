@@ -3,9 +3,10 @@
         <style type="text/css">
             /* Background*/
             body{
-                background-image: url("Images/background.jpg");
-                background-repeat: no-repeat;
-                background-size: cover;
+                /*                background-image: url("Images/background.jpg");
+                                background-repeat: no-repeat;
+                                background-size: cover;*/
+                background-color:lightsteelblue;    
                 text-align:center;
                 padding: 20px;
                 font-family: Arial, Helvetica, sans-serif;
@@ -63,21 +64,38 @@
             }
 
             /* Table for product display */
-            table td,tr{
+            .product{
+                margin:0;
                 overflow:hidden;
                 text-overflow: ellipsis;
+                vertical-align: top;
+                height: 100%;
+                width: 100%;
+
+            }
+            table tr,td{
+                padding:0;
+                border:transparent;
+                border-color:transparent;
+                outline:none;
+                background:transparent;
+                height: 300px;
+                width: 250px;
+
+            }
+            td button{
+                border:none;
                 border-radius: 4px;
                 padding: 8px;
                 background: snow;
-                vertical-align: top;
                 height: 300px;
                 width: 250px;
+                outline:none;
             }
-            table td:hover{
-                cursor: pointer;
+            td button:hover{
                 background: lavender;
+                cursor:pointer;
             }
-
             table {
                 border-spacing: 15px;
                 border-color: transparent;
@@ -85,13 +103,17 @@
                 margin-right:auto;
             }
 
-            td a:link{
-                text-decoration: none;
-                color: dimgrey;
+            /* Product Details */
+            .details{
+                text-align:left;
+                font-size:15px;
+                font-family: Arial, Helvetica, sans-serif;
             }
-            td a:visited{
-                color:dimgrey;
+            label{
+                color:grey;
             }
+
+
         </style>
         <script>
             if (window.history.replaceState) {
@@ -152,6 +174,9 @@
             $counter = 0;
 
             // Create a table
+            echo "<form  method='post' action='";
+            echo htmlspecialchars($_SERVER["PHP_SELF"]);
+            echo "'>";
             echo "<table border='1'>";
             for ($tr = 1; $tr <= $rows; $tr++) {
 
@@ -166,9 +191,9 @@
                     if (strlen($lineArr[5]) > 65) {
                         $lineArr[5] = substr($lineArr[5], 0, 65) . " ...";
                     }
-                    $img = "<img src='Images/" . $lineArr[4] . ".jpg'  width='80' height='150'>";
-                    $product = $img . "<br/><hr id='productHr'/>Product ID: <a href='searchResult.php?product_id=" . $lineArr[3] . "'>" . $lineArr[3] . "</a><br/>Category: " . $lineArr[4] . "<br/>Description: " . $lineArr[5];
-                    echo "<td align='left'>" . $product . "</td>";
+                    $img = "<img src='Images/" . $lineArr[4] . ".jpg'  width='80' height='120'>";
+                    $product = "<div  class='product'>" . $img . "<br/><hr id='productHr'/><div class='details'><label>Product ID:</label> " . $lineArr[3] . "<br/><label>Category: </label>" . $lineArr[4] . "<br/><label>Description: </label><br/>" . $lineArr[5] . "</div></div>";
+                    echo "<td><button type='submit' name='search' value='" . $lineArr[3] . "'>" . $product . "</button></td>";
                     $instrumentCount--;
                     $counter++;
                     echo "";
@@ -178,6 +203,7 @@
             echo "</tr>";
 
             echo "</table>";
+            echo "</form>";
             ?>
 
         </div>

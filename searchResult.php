@@ -92,10 +92,11 @@
                 color: teal;
             }
             #product_img{
+                margin-top:35px;
                 margin-left:auto;
                 margin-right:auto;  
                 display:block;
-                width: 200px;
+                width: 225px;
                 height: 250px;
             }
             #product_desc{
@@ -173,7 +174,7 @@
             }
 
             if (!$found) {
-                header("Location:searchFail.php?product_id=" . $product_id);
+                header("Location:myMusicGear.php?found=no");
             }
         }
         ?>
@@ -192,7 +193,7 @@
 
         <!-- Product Information Section -->
         <div class="product">
-            <div ><?php echo "<img id=\"product_img\" src='Images/" . $productArr['category'] . ".jpg'>"; ?></div>
+            <div ><?php echo "<img id=\"product_img\" src='Images/" . $productArr['category'] . ".png'>"; ?></div>
             <div class="container">
                 <h3 class="sectionHead">Basic Information</h3>
                 <div class="row1">

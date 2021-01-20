@@ -137,6 +137,14 @@
                 $product_idErr = "Product ID format should be in ccc-nnnn-yy format (E.g. abc-0123-14)";
             }
         }
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            if(isset($_GET["found"])&& $_GET["found"] == "no"){
+                $product_idErr = "The page that you are looking for does not exist";
+            }
+            
+        }
+        
+        
         ?>
         <!-- Page Heading Tag --> 
         <h1>Welcome to My Music Gear </h1>
@@ -157,7 +165,7 @@
                 <center>
                     <input type="text" placeholder="Enter Product id " name="search"> 
                     <!--<button type="submit"><i class="fa fa-search">Search</i></button>-->
-                    <br/><br/><span class="error"><?php echo $product_idErr; ?></span>
+                    <br/><br/><span id="searchErr" class="error"><?php echo $product_idErr; ?></span>
                 </center>
             </form>
         </div>
@@ -171,9 +179,9 @@
             $rows = (int) ($instrumentCount / 3) + 1; // amount of tr 
             $cols = 3; // amount of td (default is 3)
 
-            $counter = 0;
+            $counter = 0;   // Count for the number of records
 
-            // Create a table
+            // Create a table in a form
             echo "<form  method='post' action='";
             echo htmlspecialchars($_SERVER["PHP_SELF"]);
             echo "'>";
@@ -187,11 +195,11 @@
 
                 for ($td = 1; $td <= $cols; $td++) {
                     $lineArr = explode("::", $readFile[$counter]);
-                    // Limit the description word characters 
+                    // Limit the description word characters at 65 chars
                     if (strlen($lineArr[5]) > 65) {
                         $lineArr[5] = substr($lineArr[5], 0, 65) . " ...";
                     }
-                    $img = "<img src='Images/" . $lineArr[4] . ".jpg'  width='80' height='120'>";
+                    $img = "<img src='Images/" . $lineArr[4] . ".png'  width='110' height='120'>";
                     $product = "<div  class='product'>" . $img . "<br/><hr id='productHr'/><div class='details'><label>Product ID:</label> " . $lineArr[3] . "<br/><label>Category: </label>" . $lineArr[4] . "<br/><label>Description: </label><br/>" . $lineArr[5] . "</div></div>";
                     echo "<td><button type='submit' name='search' value='" . $lineArr[3] . "'>" . $product . "</button></td>";
                     $instrumentCount--;

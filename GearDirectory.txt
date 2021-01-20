@@ -15,6 +15,6 @@ Tracy::61231234::ice@ice.com::abc-1234-14::Guitar::Junior classical guitar. A go
 Bob::91234567::apple@ice.com::qsw-1021-10::Keyboard::This is my old piano which I am selling to upgrade to a new one.::2010::Pianobomb::Soothing~~Classical::Used
 Billy::91234567::apple@ice.com::lqw-2463-20::Brass::his is a trumpet which was purchased recently.::2020::Blastmusic::Gold~~Shiny::New
 Dan::61235464::dan@ice.com::anq-1234-20::Brass::This is a saxophone.::2020::Bluemusic::Cool::New
-Summer::91254234::summer@ice.com::oqw-1415-10::Guitar::Guitar Cool.::2005::Oldschool::Old~~Retro::Used
-Soul::91234567::apple@ice.com::qas-3455-14::Others::Bass::2014::Bass::Low~~Soulful~~Cool::Used
+Summer::91254234::summer@ice.com::oqw-1415-10::Woodwind::Woodwind Cool.::2005::Oldschool::Old~~Retro::Used
+Soul::91234567::apple@ice.com::qas-3455-14::Percussion::Drum::2014::DrumLand::Loud~~Soulful~~Cool::Used
 Finn::91234567::finn@ice.com::sqw-0023-10::Bowed Strings::Black saxophone and the rest is just some testing messages here::2017::Wdcc::Black::Used

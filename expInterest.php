@@ -51,7 +51,7 @@
                 float:left;
             }
             .field {
-                width:150px;
+                width:180px;
                 display:inline-block;
                 text-align:right;
                 float:left;
@@ -125,10 +125,28 @@
         <?php
 
         // String Cleaning
+        // String Cleaning
         function clean_input($input) {
-            $input = trim($input);
-            $input = stripslashes($input);
-            $input = htmlspecialchars($input);
+            $input = trim($input);  // Remove leading and trailing whitespace 
+            $input = stripslashes($input);  // Remove '\' (slashes)
+            $input = str_replace("~", "-", $input); // Prevent it from messing up data storage (Delimiter: "~~")
+            $input = str_replace(":", "-", $input); // Prevent it from messing up data storage (Delimiter: "::")
+            $input = htmlspecialchars($input);  // Treat special chars as HTML entities
+            $input = strtolower($input);    // All chars to lowercase
+            return $input;
+        }
+
+        // String standardise of band and other names (e.g. Yamaha)
+        function capsFirst($input) {
+            $input = clean_input($input);
+            $input = ucfirst($input);   // First char is uppercase
+            return $input;
+        }
+
+        // Human name standardise (e.g. Bob Josh)
+        function nameStandard($input) {
+            $input = clean_Input($input);
+            $input = ucwords(strtolower($input));
             return $input;
         }
 
@@ -143,9 +161,9 @@
         $nameErr = $phoneErr = $emailErr = $product_idErr = $pPriceErr = "";    // Error variables
         $msg = "";
 
-        $name_pattern = "/^[a-zA-Z']{2,56}$/";
+        $name_pattern = "/^(?![ .]+$)[a-zA-Z ,]*$/";
         $phone_pattern = "/^[689]{1}[0-9]{7}$/"; // Singapore phone number length
-        $email_pattern = '/^[a-zA-Z0-9]+(.[_a-z0-9-]+)(?!.*[\%\/\\\&\?\,\'\;\:\!\-]{2}).*@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,3})$/';
+        $email_pattern = '/^[a-zA-Z0-9]+(.[_a-z0-9-]+)(?!.*[~@\%\/\\\&\?\,\'\;\:\!\-]{2}).*@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,3})$/';
         $id_pattern = "/^[a-z|A-Z]{3}-[0-9]{4}-[0-9]{2}$/"; // Do not REMOVE "ccc-nnnn-yy" e.g. abc-0123-14
         $checked = TRUE; // Only if TRUE then will write to txt file
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -156,64 +174,68 @@
             }
             # Name
             if (empty(clean_input($interestArr["name"]))) {
-                $nameErr = "Name is required";
+                $nameErr = "Required";
                 $checked = FALSE;
-            } else if (!preg_match($name_pattern, $interestArr["name"])){   // Validation for Name
-                $nameErr = "Invalid name format";
-                $checked =FALSE;
-            }
-            else {
-                $interestArr["name"] = clean_input($interestArr["name"]);
+            } else if (!preg_match($name_pattern, $interestArr["name"])) {   // Validation for Name
+                $nameErr = "Invalid Name";
+                $checked = FALSE;
+            } else {
+                $interestArr["name"] = nameStandard($interestArr["name"]);
             }
             # Contact Number
             if (empty($interestArr["phone"])) {
                 $checked = FALSE;
-                $phoneErr = "Phone is required";
+                $phoneErr = "Required";
             } else if (!preg_match($phone_pattern, $interestArr["phone"])) {
                 $checked = FALSE;
-                $phoneErr = "Invalid phone format";
+                $phoneErr = "Invalid Format";
             } else {
                 $interestArr["phone"] = clean_input($interestArr["phone"]);
             }
             # Email
             if (empty($interestArr["email"])) {
-                $emailErr = "Email is required";
+                $emailErr = "Required";
                 $checked = FALSE;
             } else if (!preg_match($email_pattern, $interestArr["email"])) {
-                $emailErr = "Invalid email format";
+                $emailErr = "Invalid Format";
                 $checked = FALSE;
             } else {
                 $interestArr["email"] = clean_input($interestArr["email"]);
             }
             # Product ID
             if (empty($interestArr["product_id"])) {    // Empty
-                $product_idErr = "Product ID  is required";
+                $product_idErr = "Required";
                 $checked = FALSE;
             } else if (!preg_match($id_pattern, $interestArr["product_id"])) {  // Incorrect Format
-                $product_idErr = "Invalid product Id format";
+                $product_idErr = "Invalid Format";
                 $checked = FALSE;
             } else if (!file_exists("GearDirectory.txt")) {   // Instrument File does not exist
-                $product_idErr = "No existing matching Product ID";
+                $product_idErr = "Not Found";
                 $checked = FALSE;
             } else {
                 // Check if the product exist in the "GearDirectory.txt"
                 $instrumentFile = file("GearDirectory.txt");
                 foreach ($instrumentFile as $fileLine) {
                     $fileLineArr = explode("::", $fileLine);
-                    if ($fileLine[3] !== $interestArr["product_id"]) { // If the product does not exist
-                        $product_idErr = "No existing matching Product ID";
+                    if ($fileLineArr[3] !== $interestArr["product_id"]) { // If the product does not exist
+                        $product_idErr = "Not Found";
                         $checked = FALSE;
                     } else {
-                        break;
+                        $product_idErr = "";
+                        $checked = TRUE;
+                        break;  // If it is found no further checks needed
                     }
                 }
             }
             # Proposing Price
             if (empty($interestArr["pPrice"])) {
-                $pPriceErr = "Proposing price  is required";
+                $pPriceErr = "Required";
+                $checked = FALSE;
+            } else if (!is_numeric($interestArr["pPrice"])) {
+                $pPriceErr = "Invalid Number";
                 $checked = FALSE;
             } else if ($interestArr["pPrice"] <= 0) {
-                $pPriceErr = "Positive number required";
+                $pPriceErr = "Only Positive Number";
                 $checked = FALSE;
             } else {
                 $interestArr["pPrice"] = clean_input($interestArr["pPrice"]);
@@ -254,7 +276,6 @@
 
         <!-- HTML -->
         <hr/>
-
         <div id="header">
             <h2>Expression of Interest</h2>
         </div>
@@ -273,11 +294,6 @@
                 </div>
             </form>
         </div>
-
-
-
-
-
     </body>
 </html>
 

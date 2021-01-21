@@ -37,8 +37,6 @@
                 border-radius: 1px;
             }
 
-
-
             /* Form Submit Button */
             .submitBtn{
                 margin-left:auto;
@@ -164,7 +162,6 @@
                 padding: 2px 4px 2px 4px;
                 float:left;
             }
-
             #desc:focus{
                 outline:none;
             }
@@ -196,7 +193,7 @@
             /* Form Error Display */
             .error {
                 color: red;
-                width: 225px;   
+                width: 230px;   
                 text-align:left;
                 float:right;
             }
@@ -268,8 +265,6 @@
                 color:red;
             }
 
-
-
         </style>
         <script>
             /* onLoad (functions to be called onload) */
@@ -317,7 +312,12 @@
             /* Remove whitespace (e.g. "wHite" to  "White")*/
             function charCleaning(char) {
                 char = char.trim();
-                char = char.charAt(0).toUpperCase() + char.slice(1).toLowerCase();
+                char = char.split(" ");
+                for (var i = 0; i < char.length; i++) {
+                    char[i] = char[i][0].toUpperCase() + char[i].substr(1);
+                }
+                char = char.join(" ");  // Join the string up to prevent commas
+//                char = char.charAt(0).toUpperCase() + char.slice(1).toLowerCase();
                 return char;
             }
 
@@ -386,7 +386,6 @@
                     document.getElementById("addChar").disabled = true;
                 }
             }
-
         </script>
 
     </head>
@@ -406,9 +405,16 @@
         }
 
         // String standardise of band and other names (e.g. Yamaha)
-        function nameStandard($input) {
+        function capsFirst($input) {
             $input = clean_input($input);
             $input = ucfirst($input);   // First char is uppercase
+            return $input;
+        }
+
+        // Human name standardise (e.g. Bob Josh)
+        function nameStandard($input) {
+            $input = clean_Input($input);
+            $input = ucwords(strtolower($input));
             return $input;
         }
 
@@ -424,9 +430,9 @@
             echo $string;
         }
 
-        $name_pattern = "/^[A-Za-z]*$/";
+        $name_pattern = "/^(?![ .]+$)[a-zA-Z ,]*$/";
         $phone_pattern = "/^[689]{1}[0-9]{7}$/"; // Singapore phone number length
-        $email_pattern = '/^[a-zA-Z0-9]+(.[_a-z0-9-]+)(?!.*[\%\/\\\&\?\,\'\;\:\!\-]{2}).*@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,3})$/';
+        $email_pattern = '/^[a-zA-Z0-9]+(.[_a-z0-9-]+)(?!.*[~@\%\/\\\&\?\,\'\;\:\!\-]{2}).*@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,3})$/';
 //        $email_pattern2 = '^(?=.{1,64}@)[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)(\.[A-Za-z]{2,})$';
         $id_pattern = "/^[a-z|A-Z]{3}-[0-9]{4}-[0-9]{2}$/"; // Do not REMOVE "ccc-nnnn-yy" e.g. abc-0123-14
         // Used to store correct data
@@ -462,54 +468,75 @@
 
             /* Product Information */
             # Product ID
-            if (empty($salesArr["product_id"])) {
-                $product_idErr = "Product ID  is empty";
+            if (empty($salesArr["product_id"])) {   // Empty
+                $product_idErr = "Required";
                 $checked = FALSE;
-            } else if (!preg_match($id_pattern, nameStandard($salesArr["product_id"]))) {
+            } else if (!preg_match($id_pattern, nameStandard($salesArr["product_id"]))) {   // Invalid Format
                 $product_idErr = "Product ID format incorrect";
                 $checked = FALSE;
             } else {
+                // Check if the product exist in the "GearDirectory.txt"
+                $instrumentFile = file("GearDirectory.txt");
+                foreach ($instrumentFile as $fileLine) {
+                    $fileLineArr = explode("::", $fileLine);
+                    if ($fileLineArr[3] === $salesArr["product_id"]) {  // If the product already exist
+                        $product_idErr = "Already exist";
+                        $checked = FALSE;
+                        break;
+                    }
+                }
                 $salesArr["product_id"] = clean_input($salesArr["product_id"]);
             }
 
             # Category
             if (empty(clean_input($salesArr["category"]))) {
-                $categoryErr = "Category not selected";
+                $categoryErr = "Required";
                 $checked = FALSE;
             } else {
-                $salesArr["category"] = nameStandard($salesArr["category"]);
+                $salesArr["category"] = capsFirst($salesArr["category"]);
             }
 
             # Description
-            if (empty(clean_input($salesArr["description"]))) {
+            if (empty($salesArr["description"])) {
                 $checked = FALSE;
-                $descErr = "Description is empty";
+                $descErr = "Required";
+            } else {
+                $salesArr["description"] = clean_Input($salesArr["description"]);
             }
 
             # Manufacture Year
-            if (empty(clean_input($salesArr["manufacture_yr"]))) {
-                $yrErr = "Manufacture year not selected";
+            if (empty(clean_input($salesArr["manufacture_yr"]))) {  // Empty
+                $yrErr = "Required";
                 $checked = FALSE;
+            } else if (substr($salesArr["product_id"], -2) !== substr($salesArr["manufacture_yr"], -2)) {    // Year does not match Product Id
+                $yrErr = "Year does not match Product ID";
             } else {
                 $salesArr["manufacture_yr"] = clean_input($salesArr["manufacture_yr"]);
             }
 
             # Brand
             if (empty(nameStandard($salesArr["brand"]))) {
-                $brandErr = "Brand is empty";
+                $brandErr = "Required";
                 $checked = FALSE;
             } else {
                 $salesArr["brand"] = nameStandard($salesArr['brand']);
             }
             # Characteristic
             if (sizeof($salesArr["characteristics"]) == 0) {    // Make sure there is at least one characteristic is given in the array
-                $characteristicsErr = "Characteristic is empty";
+                $characteristicsErr = "Required";
                 $checked = FALSE;
+            } else{
+                foreach($salesArr["characteristics"] as $key => $value){
+                    if (is_numeric($value)){
+                        $checked = FALSE;
+                        $characteristicsErr = "Numbers not allowed";
+                        break;
+                    }
+                }
             }
-
             # Conditions
             if (empty(nameStandard($salesArr["conditions"]))) {
-                $conditionErr = "Condition not selected";
+                $conditionErr = "Required";
                 $checked = FALSE;
             } else {
                 $salesArr["conditions"] = nameStandard($salesArr["conditions"]);
@@ -518,7 +545,10 @@
             /* Seller Information */
             # Name
             if (empty(nameStandard($salesArr["name"]))) {
-                $nameErr = "Name is empty";
+                $nameErr = "Required";
+                $checked = FALSE;
+            } else if (!preg_match($name_pattern, $salesArr["name"])) {
+                $nameErr = "Invalid Name";
                 $checked = FALSE;
             } else {
                 $salesArr["name"] = nameStandard($salesArr["name"]);
@@ -528,17 +558,17 @@
                 $phoneErr = "Contact is empty";
                 $checked = FALSE;
             } else if (!preg_match($phone_pattern, $salesArr["phone"])) {
-                $phoneErr = "Invalid phone format";
+                $phoneErr = "Invalid Phone No.";
                 $checked = FALSE;
             } else {
                 $salesArr["phone"] = clean_input($salesArr["phone"]);
             }
             # Email
             if (empty($salesArr["email"])) {
-                $emailErr = "Email is empty";
+                $emailErr = "Required";
                 $checked = FALSE;
             } else if (!preg_match($email_pattern, $salesArr["email"])) {
-                $emailErr = "Invalid email format";
+                $emailErr = "Invalid Email";
                 $checked = FALSE;
             } else {
                 $salesArr["email"] = clean_input($salesArr["email"]);
@@ -548,11 +578,11 @@
             if ($checked) {
                 $charCounter = 0;
                 $salesFile = fopen("GearDirectory.txt", "a");  // Write at the end of the file (create if it does not exist)
-                $data = $salesArr["name"] . "::" . $salesArr["phone"] . "::" . $salesArr["email"] . "::" . $salesArr["product_id"] . "::" . $salesArr["category"] . "::" . $salesArr["description"] . "::" . $salesArr["manufacture_yr"] . "::" . $salesArr["brand"]."::";
+                $data = $salesArr["name"] . "::" . $salesArr["phone"] . "::" . $salesArr["email"] . "::" . $salesArr["product_id"] . "::" . $salesArr["category"] . "::" . $salesArr["description"] . "::" . $salesArr["manufacture_yr"] . "::" . $salesArr["brand"] . "::";
                 foreach ($salesArr['characteristics'] as $key => $value) {
                     $data .= $value;
-                    if ($charCounter < count($salesArr['characteristics'])-1){
-                        $data.="~~";
+                    if ($charCounter < count($salesArr['characteristics']) - 1) {
+                        $data .= "~~";
                     }
                     $charCounter++;
                 }
@@ -562,9 +592,6 @@
                 echo '<script type = "text/javascript" >
                                 alert("You have successfully added an instrument");
             </script>';
-
-
-
                 $salesArr = array(
                     'name' => '',
                     'phone' => '',
@@ -582,8 +609,6 @@
             }
         }
         ?>
-
-
         <!--Page Heading Tag-->
         <h1><center>My Music Gear </center></h1>
         <!-- Navigation -->
@@ -594,7 +619,6 @@
             <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
         </ul>
         <hr/>
-
         <h2 id="title">Sales of Instrument</h2>
         <!-- Instrument Details -->
         <form class="instrumentForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> ">
@@ -637,8 +661,6 @@
                             echo ' selected="selected"';
                         }
                         ?>>Guitar</option>
-
-                        ?>>Others</option>
                     </select><span class="error"> <?php echo $categoryErr; ?>
                 </p>
                 <p class="descSection"><label class="instrumentLabel"  for ="description">Description:</label><textarea id="desc"  name="description"><?php echo $salesArr["description"]; ?></textarea>
@@ -652,7 +674,7 @@
                     <select id="manufacture_yr" name="manufacture_yr" class="selectOpt">
                         <?php loadYear($salesArr['manufacture_yr']); ?>
                     </select>
-                    <span class="error"> <?php echo $yrErr; ?>
+                    <span class="error"> <?php echo $yrErr; ?></span>
                 </p>
                 <p class="normalSection"><label class="instrumentLabel">Brand:</label><input type="text" name="brand" class="formText" value="<?php echo $salesArr["brand"]; ?>"><span class="error"> <?php echo $brandErr; ?></span></p>
                 <p class="normalSection"><label class="instrumentLabel">(Max: 5) Characteristics:</label>
@@ -661,7 +683,6 @@
                     <span class="error" id="charErr"> <?php echo $characteristicsErr; ?></span>
                 </p>
                 <p class="charSection">
-
                     <span id="charDisplay">
                         <?php
                         foreach ($salesArr['characteristics'] as $key => $value) {
@@ -670,7 +691,6 @@
                         ?>
                     </span>
                 </p>
-
                 <p class="normalSection"><label for name="sex" class="instrumentLabel">Conditions:</label>
                     <input type="radio" class="hideRadio" id="new" name="conditions" <?php
                     if ($salesArr["conditions"] == "New") {
@@ -686,8 +706,6 @@
                 </p>
             </div>
             <br/>
-
-
             <!-- Seller Information -->
             <div class="sectionDetails">
                 <h4 class="sectionHead" align='center'>Seller Information</h4>

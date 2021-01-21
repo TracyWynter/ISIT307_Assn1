@@ -149,7 +149,7 @@
                             'description' => $lineArr[5],
                             'manufacture_yr' => $lineArr[6],
                             'brand' => $lineArr[7],
-                            'characteristics' =>implode(", ",  explode("~~",$lineArr[8])),
+                            'characteristics' => implode(", ", explode("~~", $lineArr[8])),
                             'conditions' => $lineArr[9]
                         );
 
@@ -220,11 +220,6 @@
                 <p class="lineInfo"><span class="fieldText">Email: </span><span class="info"><?php echo $productArr['email']; ?></span></p>
             </div>
         </div>
-
-
-
-
-
     </body>
 </html>
 

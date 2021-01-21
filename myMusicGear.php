@@ -177,13 +177,11 @@
 
         <!-- Display Instrument Sales Product -->
         <div>
-
             <?php
             $readFile = file('GearDirectory.txt');
             $instrumentCount = count($readFile); // Total instrument in txt file
             $rows = (int) ($instrumentCount / 3) + 1; // amount of tr 
             $cols = 3; // amount of td (default is 3)
-
             $counter = 0;   // Count for the number of records
 
             // Create a table in a form
@@ -192,12 +190,10 @@
             echo "'>";
             echo "<table border='1'>";
             for ($tr = 1; $tr <= $rows; $tr++) {
-
                 echo "<tr>";
                 if ($instrumentCount < $cols) { // For the last row
                     $cols = $instrumentCount;
                 }
-
                 for ($td = 1; $td <= $cols; $td++) {
                     $lineArr = explode("::", $readFile[$counter]);
                     // Limit the description word characters at 65 chars
@@ -212,14 +208,10 @@
                     echo "";
                 }
             }
-
             echo "</tr>";
-
             echo "</table>";
             echo "</form>";
             ?>
-
         </div>
-        <div></div>
     </body>
 </html>

@@ -11,7 +11,7 @@
                 padding: 20px;
                 font-family: Arial, Helvetica, sans-serif;
             }
-            form.search input[type=text]{
+            form.search #search{
                 width: 60%;
                 height: 30px;
                 border-radius: 10px;
@@ -19,7 +19,7 @@
                 padding: 6px;
             }
             /*remove search outline */
-            form.search input[type=text]:focus{ 
+            form.search #search:focus{ 
                 outline:none;
             }
             form.search button {
@@ -138,8 +138,15 @@
             }
         }
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            if(isset($_GET["found"])&& $_GET["found"] == "no"){
-                $product_idErr = "The page that you are looking for does not exist";
+            if(isset($_GET["found"])){
+                switch($_GET["found"]){
+                    case "no":
+                        $product_idErr = "The product that you are looking for does not exist";
+                        break;
+                    default:
+                        $product_idErr = "The page that you are looking for does not exist";
+                }
+                
             }
             
         }
@@ -161,7 +168,7 @@
         <div>
             <form class="search" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
                 <center>
-                    <input type="text" placeholder="Enter Product id " name="search"> 
+                    <input type="text" id="search" placeholder="Enter Product id " name="search"> 
                     <!--<button type="submit"><i class="fa fa-search">Search</i></button>-->
                     <br/><br/><span id="searchErr" class="error"><?php echo $product_idErr; ?></span>
                 </center>

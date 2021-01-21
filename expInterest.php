@@ -15,8 +15,8 @@
                 margin: 0px 50px 0px 0px;
                 overflow:hidden;
                 padding:0;
-              
-                
+
+
             }
             li {
                 float: right;
@@ -39,40 +39,48 @@
             /* Form Error Display */
             .error {
                 color: red;
-                width: 100px;   
+                width: 150px;   
+                margin-left: 2px;
+
             }
             .reminder{
+                display:block;
                 color:red;
-                width: 350px;
-                margin-left:30%;
-                margin-right:auto;
+                width: 100%;
+                text-align: center;
+                float:left;
             }
             .field {
                 width:150px;
                 display:inline-block;
                 text-align:right;
                 float:left;
-                padding-right: 10px;
+                padding-right: 30px;
             }
             input.formText{
                 text-align:left;
+                width: 200px;
                 border: 1px solid black;
                 border-radius: 5px;
                 padding: 4px;
                 outline:none;
             }
             input.formText:focus{
-                border:1px solid blue;
+                border:1px solid teal;
             }
             .interestForm{
-                clear:both;
-                width: 550px;
+                width: 580px;
                 margin-left:auto;
                 margin-right:auto;
+            }
+
+            #header{
+                text-align:center;
             }
             .formContainer{
                 margin-right:auto;
             }
+
             .submitBtn{
                 /*text-align:center;*/
                 margin-left:253px;  /* custom made to align */
@@ -135,7 +143,7 @@
         $nameErr = $phoneErr = $emailErr = $product_idErr = $pPriceErr = "";    // Error variables
         $msg = "";
 
-
+        $name_pattern = "/^[a-zA-Z']{2,56}$/";
         $phone_pattern = "/^[689]{1}[0-9]{7}$/"; // Singapore phone number length
         $email_pattern = '/^[a-zA-Z0-9]+(.[_a-z0-9-]+)(?!.*[\%\/\\\&\?\,\'\;\:\!\-]{2}).*@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,3})$/';
         $id_pattern = "/^[a-z|A-Z]{3}-[0-9]{4}-[0-9]{2}$/"; // Do not REMOVE "ccc-nnnn-yy" e.g. abc-0123-14
@@ -150,7 +158,11 @@
             if (empty(clean_input($interestArr["name"]))) {
                 $nameErr = "Name is required";
                 $checked = FALSE;
-            } else {
+            } else if (!preg_match($name_pattern, $interestArr["name"])){   // Validation for Name
+                $nameErr = "Invalid name format";
+                $checked =FALSE;
+            }
+            else {
                 $interestArr["name"] = clean_input($interestArr["name"]);
             }
             # Contact Number
@@ -174,21 +186,34 @@
                 $interestArr["email"] = clean_input($interestArr["email"]);
             }
             # Product ID
-            if (empty($interestArr["product_id"])) {
+            if (empty($interestArr["product_id"])) {    // Empty
                 $product_idErr = "Product ID  is required";
                 $checked = FALSE;
-            } else if (!preg_match($id_pattern, $interestArr["product_id"])) {
-                $product_idErr = "Product ID format incorrect";
+            } else if (!preg_match($id_pattern, $interestArr["product_id"])) {  // Incorrect Format
+                $product_idErr = "Invalid product Id format";
+                $checked = FALSE;
+            } else if (!file_exists("GearDirectory.txt")) {   // Instrument File does not exist
+                $product_idErr = "No existing matching Product ID";
                 $checked = FALSE;
             } else {
-                $interestArr["product_id"] = clean_input($interestArr["product_id"]);
+                // Check if the product exist in the "GearDirectory.txt"
+                $instrumentFile = file("GearDirectory.txt");
+                foreach ($instrumentFile as $fileLine) {
+                    $fileLineArr = explode("::", $fileLine);
+                    if ($fileLine[3] !== $interestArr["product_id"]) { // If the product does not exist
+                        $product_idErr = "No existing matching Product ID";
+                        $checked = FALSE;
+                    } else {
+                        break;
+                    }
+                }
             }
             # Proposing Price
             if (empty($interestArr["pPrice"])) {
                 $pPriceErr = "Proposing price  is required";
                 $checked = FALSE;
             } else if ($interestArr["pPrice"] <= 0) {
-                $pPriceErr = "Please input a positive number";
+                $pPriceErr = "Positive number required";
                 $checked = FALSE;
             } else {
                 $interestArr["pPrice"] = clean_input($interestArr["pPrice"]);
@@ -229,14 +254,16 @@
 
         <!-- HTML -->
         <hr/>
-        <h2><center>Expression of Interest</center></h2>
 
+        <div id="header">
+            <h2>Expression of Interest</h2>
+        </div>
         <div class="interestForm">
             <span class="reminder">[Please ensure all fields are filled]</span></br></br>  
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
                 <div class="formContainer">
                     <label class="field" for="name">Name: </label><input type="text" name="name" id="name" class="formText" value="<?php echo $interestArr["name"]; ?>"><span class="error"> <?php echo $nameErr; ?></span><br/><br/>
-                    <label class="field" for="phone">Contact Number: </label><input type="text" id="phone" class="formText" name="phone" value="<?php echo $interestArr["phone"]; ?>"><span class="error"> <?php echo $phoneErr; ?></span><br/><br/>
+                    <label class="field" for="phone">Contact Number: </label><input type="text" id="phone" class="formText" placeholder = "8 digit number" name="phone" value="<?php echo $interestArr["phone"]; ?>"><span class="error"> <?php echo $phoneErr; ?></span><br/><br/>
                     <label class="field" for="email"> E-mail: </label><input type="text"  placeholder="example@mail.com" id="email" name="email" class="formText" value="<?php echo $interestArr["email"]; ?>"><span class="error"> <?php echo $emailErr; ?></span><br/><br/>
                     <label class="field" for="product_id">Product id: </label><input type="text" id="product_id" class="formText" name="product_id" value="<?php echo $interestArr["product_id"]; ?>"><span class="error"> <?php echo $product_idErr ?></span><br/><br/>
                     <label class="field" for="pPrice">Proposing Price ($): </label><input type="text" id="pPrice" class="formText" name="pPrice" value="<?php echo $interestArr["pPrice"]; ?>"><span class="error"> <?php echo $pPriceErr; ?></span><br/><br/>
@@ -246,6 +273,7 @@
                 </div>
             </form>
         </div>
+
 
 
 

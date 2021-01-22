@@ -132,14 +132,17 @@
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $found = FALSE;
             $product_id = strtolower($_GET["product_id"]);
-            // Check and Read from GearDirectory.txt
+            /* Check and Read from GearDirectory.txt 
+             (Store information array if product id is found)
+             */
             if (file_exists("GearDirectory.txt")) {
                 $gearDir = file("GearDirectory.txt"); // Read file
                 foreach ($gearDir as $line) {
                     $lineArr = explode("::", $line); // Delimit the line
 
-                    if (strcasecmp($product_id, $lineArr[3]) == 0) {  // Zero if it is true
-                        $found = TRUE;
+                    if (strcasecmp($product_id, $lineArr[3]) == 0) {  // Zero if string compare is true
+                        $found = TRUE;  // Set to true
+                        // Load date to array
                         $productArr = array(
                             'name' => $lineArr[0],
                             'phone' => $lineArr[1],
@@ -152,7 +155,7 @@
                             'characteristics' => implode(", ", explode("~~", $lineArr[8])),
                             'conditions' => $lineArr[9]
                         );
-
+                        // Check if the file exist else create one
                         if (file_exists("BuyerExInterests.txt")) {
                             $interestDir = file("BuyerExInterests.txt"); // Read file
                             foreach ($interestDir as $buyerLine) {
@@ -163,16 +166,13 @@
                             }
                         }
                         break;
-                    } else { //If status is sold out, picture will be shown and says sold out 
-                        //if()
                     }
                 }
             } else {
                 $gearDir = fopen("GearDirectory.txt", "x"); // Create mode
                 fclose($gearDir);
-                echo "Product Not Found";
             }
-
+            // If not found then redirect back to the main page (preventing page showing blank fields)
             if (!$found) {
                 header("Location:myMusicGear.php?found=no");
             }
@@ -185,8 +185,8 @@
         <hr/>
         <ul>
             <li><a href="instrumentSales.php" class="navi">SELL INSTRUMENT</a></li>    <!-- Sales of instrument Page -->
-            <li><a href="expInterest.php" class="navi">EXPRESS INTEREST</a></li>
-            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
+            <li><a href="expInterest.php" class="navi">EXPRESS INTEREST</a></li>    <!-- Product Interest Expression -->
+            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>   <!-- Main Page -->
         </ul>
         <hr/>
 

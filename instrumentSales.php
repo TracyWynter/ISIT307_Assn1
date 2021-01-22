@@ -84,13 +84,13 @@
                 float:left;
 
             }
-            /*When male radio btn is checked*/
+            /*When new radio btn is checked*/
             #new:checked + .conBtnLabel
             {
                 background: lightgreen;
                 color:black;
             }
-            /*When female radio btn is checked*/
+            /*When used radio btn is checked*/
             #used:checked + .conBtnLabel
             {
                 background: lightgreen;
@@ -267,22 +267,9 @@
 
         </style>
         <script>
-            /* onLoad (functions to be called onload) */
-            function loadAll() {
-                charLoad();
-            }
-
             var charCount = 0;
             var charArr = [];
 
-            /* Load Characteristic Array */
-            function charLoad() {
-                if (charArr.length > 0) {
-                    for (var j = 0; j < charArr.length; j++) {
-                        createChar(charArr[j]);
-                    }
-                }
-            }
             /* Create one char */
             function createChar(input) {
                 var hiddenVal = "<input type='hidden' name='characteristics[" + input + "]' value=" + input + ">"; // Store value
@@ -317,7 +304,7 @@
                     char[i] = char[i][0].toUpperCase() + char[i].substr(1);
                 }
                 char = char.join(" ");  // Join the string up to prevent commas
-//                char = char.charAt(0).toUpperCase() + char.slice(1).toLowerCase();
+//                char = char.charAt(0).toUpperCase() + char.slice(1).toLowerCase();    // Only First letter of the whole string is caps
                 return char;
             }
 
@@ -335,7 +322,6 @@
                     if (charArr.length > 0) {
                         for (var i = 0; i < charArr.length; i++) {
                             if (cleanInput === charArr[i]) {
-
                                 exist = true;
                                 break;
                             }
@@ -363,9 +349,8 @@
 
                 // Remove the key from the array which key refers to characteristics[key]
                 for (var i = 0; i < charArr.length; i++) {
-//                    document.getElementById("charErr").innerHTML = charId;  // testing
                     if (charId === charArr[i]) {
-                        var index = charArr.indexOf(charId);
+                        var index = charArr.indexOf(charId);    // Position of the string in charArr
                         if (index > -1) {   // Just to make sure it does not go array index out of bound
                             charArr.splice(index, 1);   // remove the value from the array
                         }
@@ -375,7 +360,8 @@
                 charCount--;
                 charChange();
             }
-            // Add button status change
+            
+            // Add button status change (called by another function)
             function charChange() {
                 /* Button Only Active if Less than 5 char */
                 if (charCount < 5) {
@@ -389,10 +375,9 @@
         </script>
 
     </head>
-    <body onload="loadAll()">
+    <body>
 
         <?php
-
         // String Cleaning
         function clean_input($input) {
             $input = trim($input);  // Remove leading and trailing whitespace 
@@ -433,7 +418,6 @@
         $name_pattern = "/^(?![ .]+$)[a-zA-Z ,]*$/";
         $phone_pattern = "/^[689]{1}[0-9]{7}$/"; // Singapore phone number length
         $email_pattern = '/^[a-zA-Z0-9]+(.[_a-z0-9-]+)(?!.*[~@\%\/\\\&\?\,\'\;\:\!\-]{2}).*@[a-z0-9-]+(.[a-z0-9-]+)(.[a-z]{2,3})$/';
-//        $email_pattern2 = '^(?=.{1,64}@)[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)@[^-][A-Za-z0-9-]+(\.[A-Za-z0-9-]+)(\.[A-Za-z]{2,})$';
         $id_pattern = "/^[a-z|A-Z]{3}-[0-9]{4}-[0-9]{2}$/"; // Do not REMOVE "ccc-nnnn-yy" e.g. abc-0123-14
         // Used to store correct data
         $salesArr = array(
@@ -464,8 +448,7 @@
                     $salesArr[$key] = htmlspecialchars($value);
                 }
             }
-            /* After loading information */
-
+            /* After loading information (Do validations) */
             /* Product Information */
             # Product ID
             if (empty($salesArr["product_id"])) {   // Empty
@@ -534,6 +517,7 @@
                     }
                 }
             }
+            
             # Conditions
             if (empty(nameStandard($salesArr["conditions"]))) {
                 $conditionErr = "Required";
@@ -591,7 +575,8 @@
                 fclose($salesFile);
                 echo '<script type = "text/javascript" >
                                 alert("You have successfully added an instrument");
-            </script>';
+                </script>';
+                // Array to store information
                 $salesArr = array(
                     'name' => '',
                     'phone' => '',
@@ -615,8 +600,8 @@
         <hr/>
         <ul>
             <li><a href="instrumentSales.php" class="navi">SELL INSTRUMENT</a></li>    <!-- Sales of instrument Page -->
-            <li><a href="expInterest.php" class="navi">EXPRESS INTEREST</a></li>
-            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
+            <li><a href="expInterest.php" class="navi">EXPRESS INTEREST</a></li>    <!-- Product Interest Expression -->
+            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>   <!-- Main Page -->
         </ul>
         <hr/>
         <h2 id="title">Sales of Instrument</h2>

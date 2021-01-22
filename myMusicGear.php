@@ -1,11 +1,9 @@
 <html>
     <head>
+        <title>My Music Gear</title>
         <style type="text/css">
             /* Background*/
             body{
-                /*                background-image: url("Images/background.jpg");
-                                background-repeat: no-repeat;
-                                background-size: cover;*/
                 background-color:lightsteelblue;    
                 text-align:center;
                 padding: 20px;
@@ -119,13 +117,11 @@
             if (window.history.replaceState) {
                 window.history.replaceState(null, null, window.location.href);  //prevents form resubmission upon reload
             }
-        </script>
-        <title>My Music Gear</title>
+        </script>      
     </head>
-
     <body>
         <?php
-        // Product ID regular expression
+        // Via Search Text Input
         $product_idErr = " ";
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $product_id = $_POST["search"];
@@ -137,21 +133,18 @@
                 $product_idErr = "Product ID format should be in ccc-nnnn-yy format (E.g. abc-0123-14)";
             }
         }
+        // Redirected to this page to show error messages
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            if(isset($_GET["found"])){
-                switch($_GET["found"]){
+            if (isset($_GET["found"])) {
+                switch ($_GET["found"]) {
                     case "no":
                         $product_idErr = "The product that you are looking for does not exist";
                         break;
                     default:
                         $product_idErr = "The page that you are looking for does not exist";
                 }
-                
             }
-            
         }
-        
-        
         ?>
         <!-- Page Heading Tag --> 
         <h1>Welcome to My Music Gear </h1>
@@ -180,11 +173,14 @@
             <?php
             $readFile = file('GearDirectory.txt');
             $instrumentCount = count($readFile); // Total instrument in txt file
-            $rows = (int) ($instrumentCount / 3) + 1; // amount of tr 
-            $cols = 3; // amount of td (default is 3)
+            $cols = 3; // amount of td (default is 3)           
+            $rows = (int) ($instrumentCount / $cols); // amount of tr  
+            // Add another row if the count is not divisible by $cols
+            if ($instrumentCount % $cols !== 0) {
+                $rows += 1;
+            }
             $counter = 0;   // Count for the number of records
-
-            // Create a table in a form
+            // Create a Table in a Form
             echo "<form  method='post' action='";
             echo htmlspecialchars($_SERVER["PHP_SELF"]);
             echo "'>";
@@ -202,7 +198,7 @@
                     }
                     $img = "<img src='Images/" . $lineArr[4] . ".png'  width='110' height='120'>";
                     $product = "<div  class='product'>" . $img . "<br/><hr id='productHr'/><div class='details'><label>Product ID:</label> " . $lineArr[3] . "<br/><label>Category: </label>" . $lineArr[4] . "<br/><label>Description: </label><br/>" . $lineArr[5] . "</div></div>";
-                    echo "<td><button type='submit' name='search' value='" . $lineArr[3] . "'>" . $product . "</button></td>";
+                    echo "<td><button type='submit' name='search' value='" . $lineArr[3] . "'>" . $product . "</button></td>";  // Insert button into each cell
                     $instrumentCount--;
                     $counter++;
                     echo "";

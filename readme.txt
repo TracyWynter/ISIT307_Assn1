@@ -10,6 +10,9 @@ Group Members:
 For "GearDirectory.txt" (how information is stored)
 name(0)::phone(1)::email(2)::product_id_number(3)::category(4)::description(5)::yr_of_manufacture(6)::brand(7)::characteristics(8)::conditions(9)::status(10)
 
+characteristics(8) information storage
+char(0)~~char(1)~~char(2)~~char(3)~~char(4)
+
 
 For "BuyerExInterest.txt" (how information is stored)
 name(0)::phone(1)::email(2)::product_id_number(3)::proposing_price(4)

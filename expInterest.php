@@ -1,7 +1,6 @@
 <html>
     <head>
         <title>Product Interest</title>
-
         <!-- Styling -->
         <style type="text/css">
             body{
@@ -15,8 +14,6 @@
                 margin: 0px 50px 0px 0px;
                 overflow:hidden;
                 padding:0;
-
-
             }
             li {
                 float: right;
@@ -172,6 +169,7 @@
                     $interestArr[$key] = htmlspecialchars($value);
                 }
             }
+            // Do validations
             # Name
             if (empty(clean_input($interestArr["name"]))) {
                 $nameErr = "Required";
@@ -270,8 +268,8 @@
         <hr/>
         <ul>
             <li><a href="instrumentSales.php" class="navi">SELL INSTRUMENT</a></li>    <!-- Sales of instrument Page -->
-            <li><a href="expInterest.php" class="navi">EXPRESS INTEREST</a></li>
-            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
+            <li><a href="expInterest.php" class="navi">EXPRESS INTEREST</a></li>    <!-- Product Interest Expression -->
+            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>   <!-- Main Page -->
         </ul>
 
         <!-- HTML -->

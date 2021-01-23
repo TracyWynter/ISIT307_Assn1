@@ -153,7 +153,7 @@
         <ul>
             <li><a href="instrumentSales.php" class="navi">SELL INSTRUMENT</a></li>    <!-- Sales of instrument Page -->
             <li><a href="expInterest.php" class="navi">EXPRESS INTEREST</a></li>
-            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>
+            <li><a href="index.php" class ="navi">HOME</a></li>
         </ul>
         <hr class="hrNavi"/>
         <br/>

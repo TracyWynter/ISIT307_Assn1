@@ -174,7 +174,7 @@
             }
             // If not found then redirect back to the main page (preventing page showing blank fields)
             if (!$found) {
-                header("Location:myMusicGear.php?found=no");
+                header("Location:index.php?found=no");
             }
         }
         ?>
@@ -186,7 +186,7 @@
         <ul>
             <li><a href="instrumentSales.php" class="navi">SELL INSTRUMENT</a></li>    <!-- Sales of instrument Page -->
             <li><a href="expInterest.php" class="navi">EXPRESS INTEREST</a></li>    <!-- Product Interest Expression -->
-            <li><a href="myMusicGear.php" class ="navi">HOME</a></li>   <!-- Main Page -->
+            <li><a href="index.php" class ="navi">HOME</a></li>   <!-- Main Page -->
         </ul>
         <hr/>
 

@@ -624,7 +624,6 @@
                 <p class="normalSection"><label class="instrumentLabel" for="category">Category:</label>
                     <select id="category" name="category" class="selectOpt" >
                         <!-- 6 Main Categories -->
-                        <option hidden selected value=" ">Select Category</option>
                         <option value="Woodwind" <?php
                         if ($salesArr['category'] == "Woodwind") {
                             echo ' selected="selected"';
@@ -655,6 +654,11 @@
                             echo ' selected="selected"';
                         }
                         ?>>Guitar</option>
+                        <option value="Music Gear" <?php
+                        if ($salesArr['category'] == "Music Gear") {
+                            echo ' selected="selected"';
+                        }
+                        ?>>Music Gear</option>
                     </select><span class="error"> <?php echo $categoryErr; ?>
                 </p>
                 <p class="descSection"><label class="instrumentLabel"  for ="description">Description:</label><textarea id="desc"  name="description"><?php echo $salesArr["description"]; ?></textarea>

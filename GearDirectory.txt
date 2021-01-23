@@ -8,13 +8,13 @@ Leo::61231234::ice@leo.com::llc-2345-14::Guitar::A left handed guitar with elixi
 Jill::61231234::jill@ice.com::adc-1234-14::Brass::This is a selmer tenor saxophone with acoustic qualities . High in demand for professionals and music college students.::2014::Yamaha::Black and White::Used
 Ken::61231234::ken@ice.com::afc-1234-14::Woodwind::A clarinet made from nickel silver. It has adjustable thumb hooks , at Bb sound keys.Not recommended for beginners.::2014::Yamaha::Black and White::Used
 Josh::61231234::josh@ice.com::arg-1664-17::Guitar::A guitar known for its rich volume.It has a wide dynamic range with excellent tonal balance which is in high demand by music professionals.::2017::Yamaha::Black and White::New
-Tom::61231234::ice@ice.com::ant-1234-14::Guitar::Guitar::A classical guitar, ergonomically suited for younger player .Its ergonomic design ,playability and quality build will help young musicians or beginners to ensure that this instrument will not become a passing hobby.::2014::Yamaha::Black and White::Used
-Henry::61231234::henry@ice.com::anq-1234-14::Guitar::Guitar::A classical guitar, ergonomically suited for younger player .Its ergonomic design ,playability and quality build will help young musicians or beginners to ensure that this instrument will not become a passing hobby.::2014::Yamaha::Black and White::Used
+Tom::61231234::ice@ice.com::ant-1234-14::Guitar::A classical guitar, ergonomically suited for younger player .Its ergonomic design ,playability and quality build will help young musicians or beginners to ensure that this instrument will not become a passing hobby.::2014::Yamaha::Black and White::Used
+Henry::61231234::henry@ice.com::anq-1234-14::Guitar::A classical guitar, ergonomically suited for younger player .Its ergonomic design ,playability and quality build will help young musicians or beginners to ensure that this instrument will not become a passing hobby.::2014::Yamaha::Black and White::Used
 Tracy::61231234::ice@ice.com::abc-1234-14::Guitar::Junior classical guitar. A good choice for young beginners.Still in great quality for its strings.::2014::Yamaha::Black and White::Used
 Bob::91234567::apple@ice.com::qsw-1021-10::Keyboard::This is my old piano which I am selling to upgrade to a new one.::2010::Pianobomb::Soothing~~Classical::Used
-Billy::91234567::apple@ice.com::lqw-2463-20::Brass::This is a trumpet which was purchased recently.::2020::Blastmusic::Gold~~Shiny::New
-Dan::61235464::dan@ice.com::anq-1234-20::Brass::This is a saxophone.::2020::Bluemusic::Cool::New
+Billy::91234567::apple@ice.com::lqw-2463-20::Brass::This trumpet was purchased recently.::2020::Blastmusic::Gold~~Shiny::New
+Dan::61235464::dan@ice.com::anq-1234-20::Brass::This saxophone that has pleasant tone and it has only been purchased recently.::2020::Bluemusic::Cool::New
 Summer::91254234::summer@ice.com::oqw-1415-05::Woodwind::The flute sound is smooth and elegantl.::2005::Oldschool::Old~~Retro::Used
-Soul::91234567::apple@ice.com::qas-3455-14::Percussion::Drum::2014::DrumLand::Loud~~Soulful~~Cool::Used
+Soul::91234567::apple@ice.com::qas-3455-14::Percussion::Drum perfect for anyone::2014::DrumLand::Loud~~Soulful~~Cool::Used
 Finn::91234567::finn@ice.com::sqw-0023-17::Bowed Strings::Black violin and still in very good condition::2017::Wowmax::Black::Used
 Cornor::83252343::cornor@ice.com::llc-2343-12::Percussion::This is a perfect drum for the youngsters, despite its age it is still in excellent condition.::2012::Randomix::Rock~~Jam::Used

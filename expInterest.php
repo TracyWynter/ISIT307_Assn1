@@ -8,6 +8,15 @@
                 padding: 20px;
                 font-family: Arial, Helvetica, sans-serif;
             }
+            #logo{
+                background-image: url(Images/Logo.png);
+                background-repeat: no-repeat;
+                margin-left:auto;
+                margin-right: auto;
+                background-size: cover;
+                height:100px;
+                width:390px;
+            }
             /* Page Navi Links */
             ul {
                 list-style-type: none;
@@ -262,7 +271,7 @@
         }
         ?>
         <!-- Page Heading Tag --> 
-        <h1><center>My Music Gear </center></h1>
+        <div id = "logo"></div>
 
         <!-- Navigation -->
         <hr/>

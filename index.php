@@ -3,11 +3,20 @@
         <title>My Music Gear</title>
         <style type="text/css">
             /* Background*/
-            body{
+            body{          
                 background-color:lightsteelblue;    
                 text-align:center;
                 padding: 20px;
                 font-family: Arial, Helvetica, sans-serif;
+            }
+            #logo{
+                background-image: url(Images/Logo.png);
+                background-repeat: no-repeat;
+                margin-left:auto;
+                margin-right: auto;
+                background-size: cover;
+                height:100px;
+                width:390px;
             }
             form.search #search{
                 width: 60%;
@@ -147,7 +156,7 @@
         }
         ?>
         <!-- Page Heading Tag --> 
-        <h1>Welcome to My Music Gear </h1>
+        <div id = "logo"></div>
         <!-- Navigation -->
         <hr class="hrNavi"/>
         <ul>

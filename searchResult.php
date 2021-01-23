@@ -8,6 +8,15 @@
                 font-family: Arial, Helvetica, sans-serif;
 
             }
+            #logo{
+                background-image: url(Images/Logo.png);
+                background-repeat: no-repeat;
+                margin-left:auto;
+                margin-right: auto;
+                background-size: cover;
+                height:100px;
+                width:390px;
+            }
             /* Page Navi Links */
             ul {
                 list-style-type: none;
@@ -133,7 +142,7 @@
             $found = FALSE;
             $product_id = strtolower($_GET["product_id"]);
             /* Check and Read from GearDirectory.txt 
-             (Store information array if product id is found)
+              (Store information array if product id is found)
              */
             if (file_exists("GearDirectory.txt")) {
                 $gearDir = file("GearDirectory.txt"); // Read file
@@ -180,7 +189,7 @@
         ?>
         <!-- HTML -->
         <!-- Page Heading Tag --> 
-        <h1><center>My Music Gear </center></h1>
+        <div id = "logo"></div>
         <!-- Navigation -->
         <hr/>
         <ul>

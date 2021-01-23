@@ -10,7 +10,15 @@
                 background: lightsteelblue;
                 font-family: Arial, Helvetica, sans-serif;
             }
-
+            #logo{
+                background-image: url(Images/Logo.png);
+                background-repeat: no-repeat;
+                margin-left:auto;
+                margin-right: auto;
+                background-size: cover;
+                height:100px;
+                width:390px;
+            }
             /* Page Navi Links */
             ul {
                 list-style-type: none;
@@ -360,7 +368,7 @@
                 charCount--;
                 charChange();
             }
-            
+
             // Add button status change (called by another function)
             function charChange() {
                 /* Button Only Active if Less than 5 char */
@@ -378,6 +386,7 @@
     <body>
 
         <?php
+
         // String Cleaning
         function clean_input($input) {
             $input = trim($input);  // Remove leading and trailing whitespace 
@@ -508,16 +517,16 @@
             if (sizeof($salesArr["characteristics"]) == 0) {    // Make sure there is at least one characteristic is given in the array
                 $characteristicsErr = "Required";
                 $checked = FALSE;
-            } else{
-                foreach($salesArr["characteristics"] as $key => $value){
-                    if (is_numeric($value)){
+            } else {
+                foreach ($salesArr["characteristics"] as $key => $value) {
+                    if (is_numeric($value)) {
                         $checked = FALSE;
                         $characteristicsErr = "Numbers not allowed";
                         break;
                     }
                 }
             }
-            
+
             # Conditions
             if (empty(nameStandard($salesArr["conditions"]))) {
                 $conditionErr = "Required";
@@ -595,7 +604,7 @@
         }
         ?>
         <!--Page Heading Tag-->
-        <h1><center>My Music Gear </center></h1>
+        <div id = "logo"></div>
         <!-- Navigation -->
         <hr/>
         <ul>
